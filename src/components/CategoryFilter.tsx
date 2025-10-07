@@ -13,34 +13,34 @@ const CategoryFilter = ({ onCategoryChange, activeCategory }: CategoryFilterProp
       id: 'all',
       name: 'All Categories',
       icon: Calendar,
-      color: 'bg-gradient-to-r from-primary to-accent'
+      color: 'cta-gradient'
     },
     {
       id: '+18',
       name: '+18 Events',
       icon: Calendar,
-      color: 'bg-gradient-to-r from-red-500 to-pink-600',
+      color: 'cta-gradient',
       description: 'Clubs, bars, adult entertainment'
     },
     {
       id: 'family',
       name: 'Family Fun',
       icon: Users,
-      color: 'bg-gradient-to-r from-green-500 to-emerald-600',
+      color: 'bg-accent',
       description: 'Kid-friendly activities'
     },
     {
       id: 'conferences',
       name: 'Conferences',
       icon: FileText,
-      color: 'bg-gradient-to-r from-blue-500 to-indigo-600',
+      color: 'bg-primary',
       description: 'Business, tech, networking'
     },
     {
       id: 'venues',
       name: 'Venues',
       icon: MapPin,
-      color: 'bg-gradient-to-r from-purple-500 to-violet-600',
+      color: 'cta-gradient',
       description: 'Discover spaces'
     }
   ];
