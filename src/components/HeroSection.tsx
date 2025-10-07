@@ -170,23 +170,43 @@ const HeroSection = () => {
 
       <div className="relative z-20">
         <div className="bg-gradient-to-r from-primary to-accent py-3 overflow-hidden">
-          <div className="animate-ticker whitespace-nowrap text-white font-medium flex items-center space-x-12 text-lg">
-            <span className="flex items-center">
-              <Flame className="w-5 h-5 mr-3" />
-              🔥 1,200 tickets sold today
-            </span>
-            <span className="flex items-center">
-              <TrendingUp className="w-5 h-5 mr-3" />
-              8 events trending right now
-            </span>
-            <span className="flex items-center">
-              <MapPin className="w-5 h-5 mr-3" />
-              20 venues spotlighted
-            </span>
-            <span className="flex items-center">
-              <Users className="w-5 h-5 mr-3" />
-              500+ people browsing now
-            </span>
+          <div className="flex animate-ticker">
+            <div className="flex items-center whitespace-nowrap text-white font-medium space-x-12 text-lg">
+              <span className="flex items-center">
+                <Flame className="w-5 h-5 mr-3" />
+                🔥 1,200 tickets sold today
+              </span>
+              <span className="flex items-center">
+                <TrendingUp className="w-5 h-5 mr-3" />
+                8 events trending right now
+              </span>
+              <span className="flex items-center">
+                <MapPin className="w-5 h-5 mr-3" />
+                20 venues spotlighted
+              </span>
+              <span className="flex items-center">
+                <Users className="w-5 h-5 mr-3" />
+                500+ people browsing now
+              </span>
+            </div>
+            <div className="flex items-center whitespace-nowrap text-white font-medium space-x-12 text-lg ml-12">
+              <span className="flex items-center">
+                <Flame className="w-5 h-5 mr-3" />
+                🔥 1,200 tickets sold today
+              </span>
+              <span className="flex items-center">
+                <TrendingUp className="w-5 h-5 mr-3" />
+                8 events trending right now
+              </span>
+              <span className="flex items-center">
+                <MapPin className="w-5 h-5 mr-3" />
+                20 venues spotlighted
+              </span>
+              <span className="flex items-center">
+                <Users className="w-5 h-5 mr-3" />
+                500+ people browsing now
+              </span>
+            </div>
           </div>
         </div>
       </div>
