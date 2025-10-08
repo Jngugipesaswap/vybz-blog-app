@@ -1,6 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,12 +21,32 @@ import { Menu, X, Calendar, MapPin, Users, FileText, Bot, Wallet, Trophy } from 
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMenuOpen(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Signed Out",
+        description: "You've been successfully signed out.",
+      });
+      navigate("/");
     }
   };
 
@@ -101,7 +130,35 @@ const Navigation = () => {
             </NavigationMenu>
 
             <Button variant="ghost" onClick={() => scrollToSection('blog')}>Blog</Button>
-            <Button className="btn-gradient text-white">Sign In</Button>
+            
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback className="cta-gradient text-white">
+                        {user.email?.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => scrollToSection('wallet')}>
+                    My Wallet
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('loyalty')}>
+                    Loyalty Points
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button className="btn-gradient text-white" asChild>
+                <Link to="/auth">Sign In</Link>
+              </Button>
+            )}
           </div>
 
           <button
@@ -118,7 +175,15 @@ const Navigation = () => {
               <Button variant="ghost" className="justify-start">Events</Button>
               <Button variant="ghost" className="justify-start">Features</Button>
               <Button variant="ghost" className="justify-start">Blog</Button>
-              <Button className="btn-gradient text-white">Sign In</Button>
+              {user ? (
+                <Button variant="ghost" className="justify-start" onClick={handleSignOut}>
+                  Sign Out
+                </Button>
+              ) : (
+                <Button className="btn-gradient text-white" asChild>
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+              )}
             </div>
           </div>
         )}

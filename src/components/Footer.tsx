@@ -19,17 +19,45 @@ const Footer = () => {
               Discover, plan, and attend the best events in Kenya. From nightlife to family fun, we're your circle to everything happening in the city.
             </p>
             <div className="flex space-x-3">
-              <Button size="icon" variant="ghost" className="hover:bg-primary/20 text-background hover:text-primary">
-                <Facebook className="w-4 h-4" />
+              <Button 
+                size="icon" 
+                variant="ghost" 
+                className="hover:bg-primary/20 text-background hover:text-primary"
+                asChild
+              >
+                <a href="https://facebook.com/vybzcircle" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <Facebook className="w-4 h-4" />
+                </a>
               </Button>
-              <Button size="icon" variant="ghost" className="hover:bg-primary/20 text-background hover:text-primary">
-                <Twitter className="w-4 h-4" />
+              <Button 
+                size="icon" 
+                variant="ghost" 
+                className="hover:bg-primary/20 text-background hover:text-primary"
+                asChild
+              >
+                <a href="https://twitter.com/vybzcircle" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                  <Twitter className="w-4 h-4" />
+                </a>
               </Button>
-              <Button size="icon" variant="ghost" className="hover:bg-primary/20 text-background hover:text-primary">
-                <Instagram className="w-4 h-4" />
+              <Button 
+                size="icon" 
+                variant="ghost" 
+                className="hover:bg-primary/20 text-background hover:text-primary"
+                asChild
+              >
+                <a href="https://instagram.com/vybzcircle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram className="w-4 h-4" />
+                </a>
               </Button>
-              <Button size="icon" variant="ghost" className="hover:bg-primary/20 text-background hover:text-primary">
-                <Linkedin className="w-4 h-4" />
+              <Button 
+                size="icon" 
+                variant="ghost" 
+                className="hover:bg-primary/20 text-background hover:text-primary"
+                asChild
+              >
+                <a href="https://linkedin.com/company/vybzcircle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <Linkedin className="w-4 h-4" />
+                </a>
               </Button>
             </div>
           </div>

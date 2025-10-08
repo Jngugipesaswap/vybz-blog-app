@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Calendar, Clock, ArrowRight, Heart, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import ShareButton from "@/components/ShareButton";
 
 interface BlogPost {
   id: string;
@@ -131,6 +132,10 @@ const BlogSection = ({ posts }: BlogSectionProps) => {
                       <MessageCircle className="w-4 h-4" />
                       <span className="hidden sm:inline">{post.comments}</span>
                     </div>
+                    <ShareButton 
+                      title={post.title}
+                      description={post.excerpt}
+                    />
                   </div>
                   <Button size="sm" variant="ghost" className="text-primary hover:text-primary/80 text-xs sm:text-sm">
                     <span className="hidden sm:inline">Read More</span>

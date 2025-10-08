@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Calendar, MapPin, Clock, Ticket, Heart, Share2 } from "lucide-react";
+import { Calendar, MapPin, Clock, Ticket, Heart } from "lucide-react";
 import { useState } from "react";
+import ShareButton from "@/components/ShareButton";
 
 interface EventCardProps {
   id: string;
@@ -30,12 +31,6 @@ const EventCard = ({
   featured = false
 }: EventCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [isShared, setIsShared] = useState(false);
-
-  const handleShare = () => {
-    setIsShared(true);
-    setTimeout(() => setIsShared(false), 1000);
-  };
 
   return (
     <Card className={`group cursor-pointer hover-lift overflow-hidden ${
@@ -71,19 +66,6 @@ const EventCard = ({
               }}
             >
               <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-            </Button>
-            <Button
-              size="icon"
-              variant="secondary"
-              className={`w-9 h-9 rounded-full transition-all ${
-                isShared ? 'bg-primary text-white' : 'bg-background/80 backdrop-blur-sm'
-              }`}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleShare();
-              }}
-            >
-              <Share2 className="w-4 h-4" />
             </Button>
           </div>
         </div>
@@ -121,10 +103,16 @@ const EventCard = ({
           <span className="text-xs text-muted-foreground">Starting from</span>
           <span className="text-xl font-bold text-primary">{price}</span>
         </div>
-        <Button className="btn-gradient text-white">
-          <Ticket className="w-4 h-4 mr-2" />
-          Get Tickets
-        </Button>
+        <div className="flex gap-2">
+          <Button className="btn-gradient text-white">
+            <Ticket className="w-4 h-4 mr-2" />
+            Get Tickets
+          </Button>
+          <ShareButton 
+            title={title}
+            description={`${category} event at ${venue} on ${date}`}
+          />
+        </div>
       </CardFooter>
     </Card>
   );
