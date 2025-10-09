@@ -27,10 +27,10 @@ const HeroSection = () => {
   const categoryFilters = ['+18 Events', 'Family Fun', 'Conferences', 'Venues', 'All Categories'];
 
   return (
-    <section className="relative h-screen flex flex-col justify-between overflow-hidden">
-      {/* Background with futuristic effects */}
+    <section className="relative h-screen flex flex-col justify-between overflow-hidden bg-black">
+      {/* Minimalist Dark Background with subtle effects */}
       <div className="absolute inset-0">
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full bg-black">
           {backgroundVideo ? (
             <video
               src={backgroundVideo}
@@ -38,42 +38,41 @@ const HeroSection = () => {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover opacity-20"
             />
           ) : (
             <img
               src={futuristicBg}
               alt="Futuristic Entertainment Hub"
-              className="w-full h-full object-cover animate-[scale_20s_ease-in-out_infinite]"
+              className="w-full h-full object-cover opacity-20 animate-[scale_20s_ease-in-out_infinite]"
               style={{
                 animation: 'scale 20s ease-in-out infinite alternate',
                 transformOrigin: 'center'
               }}
             />
           )}
-          <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
-        {/* Cyber Effects Layers */}
-        <div className="scan-lines"></div>
-        <div className="digital-grid"></div>
-        <div className="hex-pattern"></div>
-        <div className="holographic-particles"></div>
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black"></div>
         
-        {/* Animated mesh gradient background */}
-        <div className="absolute inset-0 mesh-gradient"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60"></div>
-        
-        {/* Enhanced Animated blobs with more vibrant colors */}
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-blob"></div>
-        <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-secondary/30 rounded-full blur-3xl animate-blob" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 w-[450px] h-[450px] bg-accent/30 rounded-full blur-3xl animate-blob" style={{ animationDelay: '4s' }}></div>
-        <div className="absolute top-40 right-1/4 w-80 h-80 bg-primary/20 rounded-full blur-2xl animate-blob" style={{ animationDelay: '6s' }}></div>
+        {/* Large centered geometric shape - Kaleidoscope inspired */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-30">
+          <div className="relative w-full h-full">
+            {/* Multiple overlapping circles creating kaleidoscope effect */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 to-transparent blur-2xl animate-pulse"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-secondary/40 to-transparent blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-bl from-accent/40 to-transparent blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          </div>
+        </div>
+
+        {/* Subtle scan lines */}
+        <div className="scan-lines opacity-30"></div>
       </div>
 
       <Button
         onClick={() => setShowVideoUpload(!showVideoUpload)}
-        className="absolute top-24 right-4 z-30 glass-effect border-white/40"
+        className="absolute top-24 right-4 z-30 bg-black/60 border-primary/40 text-white hover:bg-primary/20 hover:border-primary"
         size="sm"
         variant="outline"
       >
@@ -90,76 +89,53 @@ const HeroSection = () => {
         </div>
       )}
 
-      {/* Enhanced floating icons with glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-32 left-16 animate-float opacity-50">
-          <div className="hover-glow">
-            <Ticket className="w-12 h-12 text-primary rotate-12 drop-shadow-[0_0_15px_rgba(56,189,179,0.8)]" />
-          </div>
+      {/* Minimal floating icons - Kaleidoscope style */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-32 left-16 animate-float-slow">
+          <Ticket className="w-8 h-8 text-primary rotate-12" />
         </div>
-        <div className="absolute top-48 right-24 animate-float-slow opacity-45">
-          <div className="hover-glow">
-            <Music className="w-10 h-10 text-secondary rotate-45 drop-shadow-[0_0_15px_rgba(186,230,253,0.8)]" />
-          </div>
+        <div className="absolute top-48 right-24 animate-float">
+          <Music className="w-7 h-7 text-secondary rotate-45" />
         </div>
-        <div className="absolute bottom-64 left-32 animate-float opacity-40">
-          <div className="hover-glow">
-            <Zap className="w-14 h-14 text-accent -rotate-12 drop-shadow-[0_0_20px_rgba(0,150,136,0.8)]" />
-          </div>
+        <div className="absolute bottom-64 left-32 animate-float-slow">
+          <Zap className="w-9 h-9 text-accent -rotate-12" />
         </div>
-        <div className="absolute top-56 right-48 animate-float-slow opacity-50">
-          <div className="hover-glow">
-            <Star className="w-8 h-8 text-primary rotate-45 drop-shadow-[0_0_15px_rgba(56,189,179,0.8)]" />
-          </div>
-        </div>
-        <div className="absolute bottom-80 right-16 animate-float opacity-45">
-          <div className="hover-glow">
-            <Users className="w-10 h-10 text-secondary -rotate-45 drop-shadow-[0_0_15px_rgba(186,230,253,0.8)]" />
-          </div>
-        </div>
-        <div className="absolute top-40 left-1/3 animate-float opacity-35">
-          <div className="hover-glow">
-            <Flame className="w-9 h-9 text-accent rotate-12 drop-shadow-[0_0_15px_rgba(0,150,136,0.8)]" />
-          </div>
+        <div className="absolute top-56 right-48 animate-float">
+          <Star className="w-6 h-6 text-primary rotate-45" />
         </div>
       </div>
 
-      <div className="relative z-10 pt-24 pb-8">
+      <div className="relative z-10 pt-32 pb-8">
         <div className="text-center animate-fade-up px-4">
-          {/* Pulse rings behind title */}
-          <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-32 h-32">
-            <div className="pulse-ring w-full h-full"></div>
-            <div className="pulse-ring w-full h-full" style={{ animationDelay: '1s' }}></div>
+          {/* Large bold heading - Kaleidoscope style */}
+          <div className="mb-16">
+            <h1 className="text-[10rem] md:text-[15rem] lg:text-[20rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none overflow-hidden">
+              VYBZ
+            </h1>
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight relative">
-            Welcome to
-            <span className="block text-gradient-animated neon-glow mt-2 relative">
-              The Vybz Circle
-              <span className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-2xl -z-10"></span>
-            </span>
-          </h1>
-          <h2 className="text-2xl md:text-3xl lg:text-5xl font-light text-white/95 mb-10 tracking-wide relative">
-            Kenya's Ultimate Entertainment Hub
-            <span className="absolute inset-0 text-primary/20 blur-sm">Kenya's Ultimate Entertainment Hub</span>
+          <h2 className="text-5xl md:text-7xl lg:text-9xl font-black text-white mb-8 leading-none tracking-tight uppercase">
+            The Vybz Circle
           </h2>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto font-light mb-12 leading-relaxed">
-            From nightlife to family fun, conferences to cultural events — discover it all in one place.
+          
+          <p className="text-xl md:text-2xl lg:text-3xl text-primary/90 font-bold mb-4 tracking-widest uppercase">
+            Kenya's Ultimate Entertainment Hub
+          </p>
+          
+          <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto font-light mb-16 tracking-wide">
+            From nightlife to family fun, conferences to cultural events
           </p>
 
-          <div className="max-w-3xl mx-auto mb-8">
-            <div className="glass-effect-strong rounded-3xl p-4 mb-6 hover-lift neon-border relative overflow-hidden">
-              {/* Cyber scan line */}
-              <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-[scan_3s_ease-in-out_infinite]"></div>
-              
-              <div className="flex items-center relative z-10">
-                <Search className="w-7 h-7 text-primary/90 ml-5 drop-shadow-[0_0_10px_rgba(56,189,179,0.8)]" />
+          <div className="max-w-4xl mx-auto mb-12">
+            <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-3 border-2 border-primary/30 hover:border-primary/60 transition-all duration-300">
+              <div className="flex items-center">
+                <Search className="w-6 h-6 text-primary ml-4" />
                 <Input
-                  placeholder="Search nightlife, family events, conferences..."
-                  className="bg-transparent border-none text-white placeholder:text-white/70 text-xl py-6 px-5 focus:ring-0 flex-1"
+                  placeholder="Search events, venues, experiences..."
+                  className="bg-transparent border-none text-white placeholder:text-white/50 text-lg py-5 px-4 focus:ring-0 flex-1 font-light"
                 />
                 <Button
-                  className="cta-gradient text-white px-10 py-4 m-1 font-bold text-lg hover-scale hover-glow cyber-button relative overflow-hidden"
+                  className="bg-primary hover:bg-primary/80 text-black px-8 py-4 m-1 font-bold text-base uppercase tracking-wide transition-all"
                   onClick={() => document.getElementById('trending-events')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Search
@@ -173,11 +149,10 @@ const HeroSection = () => {
                   key={category}
                   variant="outline"
                   size="sm"
-                  className="glass-effect-strong text-white border-white/40 hover:bg-primary/30 hover-lift interactive-badge px-6 py-2 text-base font-medium cyber-button neon-border relative"
+                  className="bg-black/60 text-white border border-primary/40 hover:bg-primary/20 hover:border-primary px-6 py-2 text-sm font-medium uppercase tracking-wide transition-all"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <span className="relative z-10">{category}</span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 hover:opacity-100 transition-opacity"></span>
+                  {category}
                 </Button>
               ))}
             </div>
@@ -185,87 +160,81 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="relative z-10 flex-1 flex items-center justify-center px-4">
-        <div className="max-w-5xl mx-auto w-full">
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+      <div className="relative z-10 flex-1 flex items-center justify-center px-4 mt-8">
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Button
               size="lg"
-              className="cta-gradient text-xl px-12 py-7 text-white font-bold hover-lift hover-glow transition-spring shadow-hover cyber-button neon-border relative overflow-hidden group"
+              className="bg-primary hover:bg-primary/80 text-black text-lg px-10 py-8 font-black uppercase tracking-wider transition-all border-2 border-transparent hover:border-primary hover:bg-black hover:text-primary"
               onClick={() => document.getElementById('adult-events')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <Zap className="w-6 h-6 mr-3 relative z-10 group-hover:animate-pulse" />
-              <span className="relative z-10">+18 Events</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+              +18 Events
             </Button>
             <Button
               size="lg"
-              className="glass-effect-strong text-xl px-12 py-7 text-white hover:bg-primary/40 hover-lift transition-spring border-primary/50 font-bold hover-glow cyber-button neon-border relative overflow-hidden group"
+              className="bg-black/80 hover:bg-primary/20 text-white text-lg px-10 py-8 font-black uppercase tracking-wider transition-all border-2 border-primary/40 hover:border-primary"
               onClick={() => document.getElementById('family-events')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <Users className="w-6 h-6 mr-3 relative z-10 group-hover:animate-pulse" />
-              <span className="relative z-10">Family Fun</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-secondary/0 via-secondary/30 to-secondary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+              Family Fun
             </Button>
             <Button
               size="lg"
-              className="glass-effect-strong text-xl px-12 py-7 text-white hover:bg-primary/40 hover-lift transition-spring border-primary/50 font-bold hover-glow cyber-button neon-border relative overflow-hidden group"
+              className="bg-black/80 hover:bg-primary/20 text-white text-lg px-10 py-8 font-black uppercase tracking-wider transition-all border-2 border-primary/40 hover:border-primary"
               onClick={() => document.getElementById('conferences')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <Star className="w-6 h-6 mr-3 relative z-10 group-hover:animate-pulse" />
-              <span className="relative z-10">Conferences</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+              Conferences
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Enhanced ticker with glow */}
-      <div className="relative z-20">
-        <div className="bg-gradient-to-r from-primary via-accent to-secondary py-4 overflow-hidden shadow-[0_0_40px_rgba(56,189,179,0.4)]">
+      {/* Minimalist ticker - Kaleidoscope style */}
+      <div className="relative z-20 border-t-2 border-primary/30">
+        <div className="bg-black py-4 overflow-hidden">
           <div className="flex animate-ticker">
-            <div className="flex items-center whitespace-nowrap text-white font-bold space-x-16 text-xl">
+            <div className="flex items-center whitespace-nowrap text-white/70 font-medium space-x-12 text-base uppercase tracking-widest">
               <span className="flex items-center">
-                <Flame className="w-6 h-6 mr-3 animate-pulse" />
-                🔥 1,200 tickets sold today
+                <Flame className="w-5 h-5 mr-2 text-primary" />
+                1,200 tickets sold today
               </span>
               <span className="flex items-center">
-                <TrendingUp className="w-6 h-6 mr-3" />
-                8 events trending right now
+                <TrendingUp className="w-5 h-5 mr-2 text-primary" />
+                8 events trending
               </span>
               <span className="flex items-center">
-                <MapPin className="w-6 h-6 mr-3" />
-                20 venues spotlighted
+                <MapPin className="w-5 h-5 mr-2 text-primary" />
+                20 venues
               </span>
               <span className="flex items-center">
-                <Users className="w-6 h-6 mr-3" />
-                500+ people browsing now
+                <Users className="w-5 h-5 mr-2 text-primary" />
+                500+ browsing
               </span>
             </div>
-            <div className="flex items-center whitespace-nowrap text-white font-bold space-x-16 text-xl ml-16">
+            <div className="flex items-center whitespace-nowrap text-white/70 font-medium space-x-12 text-base uppercase tracking-widest ml-12">
               <span className="flex items-center">
-                <Flame className="w-6 h-6 mr-3 animate-pulse" />
-                🔥 1,200 tickets sold today
+                <Flame className="w-5 h-5 mr-2 text-primary" />
+                1,200 tickets sold today
               </span>
               <span className="flex items-center">
-                <TrendingUp className="w-6 h-6 mr-3" />
-                8 events trending right now
+                <TrendingUp className="w-5 h-5 mr-2 text-primary" />
+                8 events trending
               </span>
               <span className="flex items-center">
-                <MapPin className="w-6 h-6 mr-3" />
-                20 venues spotlighted
+                <MapPin className="w-5 h-5 mr-2 text-primary" />
+                20 venues
               </span>
               <span className="flex items-center">
-                <Users className="w-6 h-6 mr-3" />
-                500+ people browsing now
+                <Users className="w-5 h-5 mr-2 text-primary" />
+                500+ browsing
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
-        <div className="glass-effect w-8 h-12 rounded-full flex justify-center items-center">
-          <div className="w-1 h-4 bg-white/70 rounded-full animate-pulse"></div>
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
+        <div className="w-6 h-10 rounded-full border-2 border-primary/50 flex justify-center pt-2">
+          <div className="w-1 h-3 bg-primary/70 rounded-full animate-pulse"></div>
         </div>
       </div>
     </section>
