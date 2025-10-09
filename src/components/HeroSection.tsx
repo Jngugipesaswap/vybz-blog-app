@@ -189,7 +189,7 @@ const HeroSection = () => {
       </div>
 
       {/* Minimalist ticker - Kaleidoscope style */}
-      <div className="relative z-20 border-t-2 border-primary/30">
+      <div className="relative z-20">
         <div className="bg-black py-4 overflow-hidden">
           <div className="flex animate-ticker">
             <div className="flex items-center whitespace-nowrap text-white/70 font-medium space-x-12 text-base uppercase tracking-widest">
