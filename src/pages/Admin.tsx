@@ -77,11 +77,13 @@ export default function Admin() {
 
   // Route to appropriate dashboard based on role
   if (userRole === 'user') {
-    return <UserDashboard />;
+    navigate("/dashboard");
+    return null;
   }
 
   if (userRole === 'content_creator') {
-    return <ContentCreatorDashboard />;
+    navigate("/content");
+    return null;
   }
 
   // Only admin role gets access to the full admin panel

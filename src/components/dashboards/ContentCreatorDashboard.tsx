@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -7,10 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   FileText, TrendingUp, Eye, Heart, MessageSquare,
-  PlusCircle, Edit, Trash2, BarChart3, Calendar
+  PlusCircle, Edit, Trash2, BarChart3, ArrowLeft, LogOut
 } from "lucide-react";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 import {
   Table,
   TableBody,
@@ -19,6 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ActivityLogger } from "@/components/admin/ActivityLogger";
 
 interface ContentStats {
   totalPosts: number;
@@ -39,7 +42,9 @@ interface Post {
 }
 
 export function ContentCreatorDashboard() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const { toast: toastHook } = useToast();
   const [stats, setStats] = useState<ContentStats>({
     totalPosts: 0,
     publishedPosts: 0,
@@ -51,6 +56,23 @@ export function ContentCreatorDashboard() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [performanceData, setPerformanceData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toastHook({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toastHook({
+        title: "Signed Out",
+        description: "You've been successfully signed out.",
+      });
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -141,6 +163,11 @@ export function ContentCreatorDashboard() {
 
       if (error) throw error;
 
+      // Log activity
+      if (user) {
+        ActivityLogger.postDeleted(user.id, postId);
+      }
+
       toast.success("Post deleted successfully");
       fetchContentData();
     } catch (error) {
@@ -161,8 +188,32 @@ export function ContentCreatorDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background p-6 space-y-6">
-      {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+      {/* Navigation Bar */}
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Button>
+            <div className="h-6 w-px bg-border" />
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg cta-gradient flex items-center justify-center">
+                <span className="text-white font-bold">V</span>
+              </div>
+              <span className="font-bold">Content Dashboard</span>
+            </div>
+          </div>
+          <Button variant="ghost" size="sm" onClick={handleSignOut} className="gap-2">
+            <LogOut className="h-4 w-4" />
+            Sign Out
+          </Button>
+        </div>
+      </nav>
+
+      {/* Dashboard Content */}
+      <div className="p-6 space-y-6">{/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
@@ -380,6 +431,7 @@ export function ContentCreatorDashboard() {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }

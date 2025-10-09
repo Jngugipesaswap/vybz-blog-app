@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -9,10 +10,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { 
   User, Heart, MessageSquare, TrendingUp, Award, 
-  Calendar, BarChart3, Coins, Wallet, Trophy 
+  Calendar, BarChart3, Coins, Wallet, Trophy, ArrowLeft, LogOut
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 interface UserStats {
   commentsCount: number;
@@ -30,7 +32,9 @@ interface ActivityData {
 }
 
 export function UserDashboard() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const { toast: toastHook } = useToast();
   const [stats, setStats] = useState<UserStats>({
     commentsCount: 0,
     reactionsCount: 0,
@@ -42,6 +46,23 @@ export function UserDashboard() {
   const [activityData, setActivityData] = useState<ActivityData[]>([]);
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toastHook({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toastHook({
+        title: "Signed Out",
+        description: "You've been successfully signed out.",
+      });
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -148,8 +169,32 @@ export function UserDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background p-6 space-y-6">
-      {/* Header Section */}
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+      {/* Navigation Bar */}
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Button>
+            <div className="h-6 w-px bg-border" />
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg cta-gradient flex items-center justify-center">
+                <span className="text-white font-bold">V</span>
+              </div>
+              <span className="font-bold">User Dashboard</span>
+            </div>
+          </div>
+          <Button variant="ghost" size="sm" onClick={handleSignOut} className="gap-2">
+            <LogOut className="h-4 w-4" />
+            Sign Out
+          </Button>
+        </div>
+      </nav>
+
+      {/* Dashboard Content */}
+      <div className="p-6 space-y-6">{/* Header Section */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
@@ -394,6 +439,7 @@ export function UserDashboard() {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }

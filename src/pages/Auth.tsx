@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { Chrome, Loader2 } from "lucide-react";
 import { z } from "zod";
 
@@ -30,10 +31,29 @@ const Auth = () => {
   const [signupName, setSignupName] = useState("");
 
   useEffect(() => {
-    if (user) {
-      // Redirect to admin route which will handle role-based dashboard routing
-      navigate("/admin");
-    }
+    const redirectBasedOnRole = async () => {
+      if (user) {
+        try {
+          const { data, error } = await supabase.rpc("get_user_role", { _user_id: user.id });
+          
+          if (error) throw error;
+          
+          // Redirect to appropriate dashboard based on role
+          if (data === 'admin') {
+            navigate("/admin");
+          } else if (data === 'content_creator') {
+            navigate("/content");
+          } else {
+            navigate("/dashboard");
+          }
+        } catch (error) {
+          console.error("Error getting user role:", error);
+          navigate("/dashboard");
+        }
+      }
+    };
+    
+    redirectBasedOnRole();
   }, [user, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -68,7 +88,7 @@ const Auth = () => {
         title: "Welcome back!",
         description: "You've successfully logged in.",
       });
-      navigate("/admin");
+      // Let the useEffect handle redirection based on role
     }
 
     setLoading(false);
@@ -107,7 +127,7 @@ const Auth = () => {
         title: "Account Created!",
         description: "Welcome to The Vybz Circle!",
       });
-      navigate("/admin");
+      // Let the useEffect handle redirection based on role
     }
 
     setLoading(false);

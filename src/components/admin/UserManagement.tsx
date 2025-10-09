@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -7,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Users, Shield } from "lucide-react";
 import { toast } from "sonner";
+import { ActivityLogger } from "./ActivityLogger";
 
 interface UserProfile {
   id: string;
@@ -22,6 +24,7 @@ interface UserRole {
 }
 
 export function UserManagement() {
+  const { user: currentUser } = useAuth();
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [userRoles, setUserRoles] = useState<Record<string, string[]>>({});
 
@@ -64,6 +67,9 @@ export function UserManagement() {
   };
 
   const handleRoleChange = async (userId: string, newRole: "admin" | "content_creator" | "user") => {
+    // Get old role for logging
+    const oldRole = userRoles[userId]?.[0] || "user";
+    
     // First, remove existing role
     await supabase.from("user_roles").delete().eq("user_id", userId);
 
@@ -75,6 +81,11 @@ export function UserManagement() {
     if (error) {
       toast.error("Failed to update user role");
       return;
+    }
+
+    // Log the activity
+    if (currentUser) {
+      ActivityLogger.userRoleChanged(currentUser.id, userId, oldRole, newRole);
     }
 
     toast.success("User role updated successfully");

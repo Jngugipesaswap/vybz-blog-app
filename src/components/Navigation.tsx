@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -143,7 +144,16 @@ const Navigation = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => navigate('/admin')}>
+                  <DropdownMenuItem onClick={async () => {
+                    try {
+                      const { data } = await supabase.rpc("get_user_role", { _user_id: user.id });
+                      if (data === 'admin') navigate('/admin');
+                      else if (data === 'content_creator') navigate('/content');
+                      else navigate('/dashboard');
+                    } catch {
+                      navigate('/dashboard');
+                    }
+                  }}>
                     My Dashboard
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => scrollToSection('wallet')}>
@@ -180,8 +190,15 @@ const Navigation = () => {
               <Button variant="ghost" className="justify-start">Blog</Button>
               {user ? (
                 <>
-                  <Button variant="ghost" className="justify-start" onClick={() => {
-                    navigate('/admin');
+                  <Button variant="ghost" className="justify-start" onClick={async () => {
+                    try {
+                      const { data } = await supabase.rpc("get_user_role", { _user_id: user.id });
+                      if (data === 'admin') navigate('/admin');
+                      else if (data === 'content_creator') navigate('/content');
+                      else navigate('/dashboard');
+                    } catch {
+                      navigate('/dashboard');
+                    }
                     setIsMenuOpen(false);
                   }}>
                     My Dashboard
