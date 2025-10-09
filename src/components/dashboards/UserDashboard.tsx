@@ -15,6 +15,9 @@ import {
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { toast } from "sonner";
 import { useToast } from "@/hooks/use-toast";
+import { WalletDialog } from "./WalletDialog";
+import { RedeemPointsDialog } from "./RedeemPointsDialog";
+import { EditProfileDialog } from "./EditProfileDialog";
 
 interface UserStats {
   commentsCount: number;
@@ -46,6 +49,12 @@ export function UserDashboard() {
   const [activityData, setActivityData] = useState<ActivityData[]>([]);
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  // Dialog states
+  const [depositDialogOpen, setDepositDialogOpen] = useState(false);
+  const [withdrawDialogOpen, setWithdrawDialogOpen] = useState(false);
+  const [redeemPointsDialogOpen, setRedeemPointsDialogOpen] = useState(false);
+  const [editProfileDialogOpen, setEditProfileDialogOpen] = useState(false);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -368,7 +377,13 @@ export function UserDashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-4xl font-bold text-amber-500">{stats.loyaltyPoints}</div>
-                <Button className="w-full">Redeem Points</Button>
+                <Button 
+                  className="w-full" 
+                  onClick={() => setRedeemPointsDialogOpen(true)}
+                  disabled={stats.loyaltyPoints < 100}
+                >
+                  Redeem Points
+                </Button>
               </CardContent>
             </Card>
 
@@ -382,8 +397,21 @@ export function UserDashboard() {
               <CardContent className="space-y-4">
                 <div className="text-4xl font-bold text-green-500">${stats.walletBalance.toFixed(2)}</div>
                 <div className="grid grid-cols-2 gap-2">
-                  <Button variant="outline" size="sm">Deposit</Button>
-                  <Button variant="outline" size="sm">Withdraw</Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setDepositDialogOpen(true)}
+                  >
+                    Deposit
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setWithdrawDialogOpen(true)}
+                    disabled={stats.walletBalance === 0}
+                  >
+                    Withdraw
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -434,12 +462,50 @@ export function UserDashboard() {
                 </div>
               </div>
 
-              <Button className="w-full mt-4">Edit Profile</Button>
+              <Button className="w-full mt-4" onClick={() => setEditProfileDialogOpen(true)}>
+                Edit Profile
+              </Button>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
       </div>
+
+      {/* Dialogs */}
+      <WalletDialog
+        open={depositDialogOpen}
+        onOpenChange={setDepositDialogOpen}
+        type="deposit"
+        currentBalance={stats.walletBalance}
+        userId={user!.id}
+        onSuccess={fetchUserData}
+      />
+
+      <WalletDialog
+        open={withdrawDialogOpen}
+        onOpenChange={setWithdrawDialogOpen}
+        type="withdraw"
+        currentBalance={stats.walletBalance}
+        userId={user!.id}
+        onSuccess={fetchUserData}
+      />
+
+      <RedeemPointsDialog
+        open={redeemPointsDialogOpen}
+        onOpenChange={setRedeemPointsDialogOpen}
+        currentPoints={stats.loyaltyPoints}
+        userId={user!.id}
+        onSuccess={fetchUserData}
+      />
+
+      <EditProfileDialog
+        open={editProfileDialogOpen}
+        onOpenChange={setEditProfileDialogOpen}
+        userId={user!.id}
+        currentName={profile?.full_name}
+        currentAvatarUrl={profile?.avatar_url}
+        onSuccess={fetchUserData}
+      />
     </div>
   );
 }
