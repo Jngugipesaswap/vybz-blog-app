@@ -105,37 +105,37 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="relative z-10 pt-32 pb-8">
+      <div className="relative z-10 pt-32 pb-12">
         <div className="text-center animate-fade-up px-4">
           {/* Large bold heading - Kaleidoscope style */}
-          <div className="mb-12 relative">
-            <h1 className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none">
+          <div className="mb-8 relative">
+            <h1 className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none">
               VYBZ
             </h1>
           </div>
           
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-8 leading-tight tracking-tight uppercase">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight uppercase">
             The Vybz Circle
           </h2>
           
-          <p className="text-xl md:text-2xl lg:text-3xl text-primary/90 font-bold mb-4 tracking-widest uppercase">
+          <p className="text-xl md:text-2xl text-primary font-bold mb-4 tracking-widest uppercase">
             Kenya's Ultimate Entertainment Hub
           </p>
           
-          <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto font-light mb-16 tracking-wide">
+          <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-light mb-12 tracking-wide">
             From nightlife to family fun, conferences to cultural events
           </p>
 
-          <div className="max-w-4xl mx-auto mb-12">
-            <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-3 border-2 border-primary/30 hover:border-primary/60 transition-all duration-300">
-              <div className="flex items-center">
-                <Search className="w-6 h-6 text-primary ml-4" />
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 border-4 border-primary shadow-2xl shadow-primary/20">
+              <div className="flex items-center gap-4">
+                <Search className="w-6 h-6 text-primary ml-2 flex-shrink-0" />
                 <Input
                   placeholder="Search events, venues, experiences..."
-                  className="bg-transparent border-none text-white placeholder:text-white/50 text-lg py-5 px-4 focus:ring-0 flex-1 font-light"
+                  className="bg-transparent border-none text-black placeholder:text-black/50 text-lg py-6 px-2 focus-visible:ring-0 flex-1 font-medium"
                 />
                 <Button
-                  className="bg-primary hover:bg-primary/80 text-black px-8 py-4 m-1 font-bold text-base uppercase tracking-wide transition-all"
+                  className="bg-primary hover:bg-primary/90 text-black px-10 py-6 font-black text-base uppercase tracking-wide transition-all shadow-lg"
                   onClick={() => document.getElementById('trending-events')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Search
@@ -143,13 +143,13 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-3 mt-6">
               {categoryFilters.map((category, index) => (
                 <Button
                   key={category}
                   variant="outline"
                   size="sm"
-                  className="bg-black/60 text-white border border-primary/40 hover:bg-primary/20 hover:border-primary px-6 py-2 text-sm font-medium uppercase tracking-wide transition-all"
+                  className="bg-black/80 text-white border-2 border-primary/60 hover:bg-primary hover:text-black px-6 py-3 text-sm font-bold uppercase tracking-wide transition-all"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {category}
@@ -160,26 +160,26 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="relative z-10 flex-1 flex items-center justify-center px-4 mt-8">
+      <div className="relative z-10 flex-1 flex items-center justify-center px-4 pb-20">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/80 text-black text-lg px-10 py-8 font-black uppercase tracking-wider transition-all border-2 border-transparent hover:border-primary hover:bg-black hover:text-primary"
+              className="bg-primary hover:bg-primary/90 text-black text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
               onClick={() => document.getElementById('adult-events')?.scrollIntoView({ behavior: 'smooth' })}
             >
               +18 Events
             </Button>
             <Button
               size="lg"
-              className="bg-black/80 hover:bg-primary/20 text-white text-lg px-10 py-8 font-black uppercase tracking-wider transition-all border-2 border-primary/40 hover:border-primary"
+              className="bg-black/90 hover:bg-primary hover:text-black text-white text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
               onClick={() => document.getElementById('family-events')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Family Fun
             </Button>
             <Button
               size="lg"
-              className="bg-black/80 hover:bg-primary/20 text-white text-lg px-10 py-8 font-black uppercase tracking-wider transition-all border-2 border-primary/40 hover:border-primary"
+              className="bg-black/90 hover:bg-primary hover:text-black text-white text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
               onClick={() => document.getElementById('conferences')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Conferences
