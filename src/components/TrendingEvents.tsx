@@ -37,20 +37,8 @@ const TrendingEvents = () => {
   const [activeCategory, setActiveCategory] = useState("all");
 
   return (
-    <section className="py-24 bg-black">
-      {/* Animated repeating text divider - Kaleidoscope style */}
-      <div className="overflow-hidden py-8 border-y border-primary/20">
-        <div className="flex animate-scroll-text">
-          <div className="repeating-text text-[8rem] md:text-[12rem] font-black text-primary/10 uppercase tracking-tighter">
-            TRENDING EVENTS • TRENDING EVENTS • TRENDING EVENTS • TRENDING EVENTS • 
-          </div>
-          <div className="repeating-text text-[8rem] md:text-[12rem] font-black text-primary/10 uppercase tracking-tighter">
-            TRENDING EVENTS • TRENDING EVENTS • TRENDING EVENTS • TRENDING EVENTS • 
-          </div>
-        </div>
-      </div>
-      
-      <div className="container mx-auto px-4 pt-16">
+    <section className="py-16 bg-black">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge className="mb-6 bg-black border-2 border-primary text-primary px-6 py-3 text-sm font-bold uppercase tracking-widest">
             Trending Now

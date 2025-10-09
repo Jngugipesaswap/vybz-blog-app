@@ -40,19 +40,7 @@ const BlogSection = ({ posts }: BlogSectionProps) => {
   };
 
   return (
-    <section id="blog" className="py-24 bg-black relative overflow-hidden">
-      {/* Animated repeating text divider - Kaleidoscope style */}
-      <div className="overflow-hidden py-8 border-y border-primary/20">
-        <div className="flex animate-scroll-text">
-          <div className="repeating-text text-[8rem] md:text-[12rem] font-black text-primary/10 uppercase tracking-tighter">
-            ENTERTAINMENT INSIGHTS • ENTERTAINMENT INSIGHTS • ENTERTAINMENT INSIGHTS • 
-          </div>
-          <div className="repeating-text text-[8rem] md:text-[12rem] font-black text-primary/10 uppercase tracking-tighter">
-            ENTERTAINMENT INSIGHTS • ENTERTAINMENT INSIGHTS • ENTERTAINMENT INSIGHTS • 
-          </div>
-        </div>
-      </div>
-      
+    <section id="blog" className="py-16 bg-black relative overflow-hidden">
       {/* Subtle decorative element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-10 pointer-events-none">
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 to-transparent blur-3xl"></div>
