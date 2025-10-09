@@ -143,6 +143,9 @@ const Navigation = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/admin')}>
+                    Admin Dashboard
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => scrollToSection('wallet')}>
                     My Wallet
                   </DropdownMenuItem>
