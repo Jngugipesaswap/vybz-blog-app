@@ -31,7 +31,8 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      // Redirect to admin route which will handle role-based dashboard routing
+      navigate("/admin");
     }
   }, [user, navigate]);
 
@@ -67,7 +68,7 @@ const Auth = () => {
         title: "Welcome back!",
         description: "You've successfully logged in.",
       });
-      navigate("/");
+      navigate("/admin");
     }
 
     setLoading(false);
@@ -106,7 +107,7 @@ const Auth = () => {
         title: "Account Created!",
         description: "Welcome to The Vybz Circle!",
       });
-      navigate("/");
+      navigate("/admin");
     }
 
     setLoading(false);

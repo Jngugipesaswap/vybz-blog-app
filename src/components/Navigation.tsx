@@ -144,7 +144,7 @@ const Navigation = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={() => navigate('/admin')}>
-                    Admin Dashboard
+                    My Dashboard
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => scrollToSection('wallet')}>
                     My Wallet
@@ -179,9 +179,17 @@ const Navigation = () => {
               <Button variant="ghost" className="justify-start">Features</Button>
               <Button variant="ghost" className="justify-start">Blog</Button>
               {user ? (
-                <Button variant="ghost" className="justify-start" onClick={handleSignOut}>
-                  Sign Out
-                </Button>
+                <>
+                  <Button variant="ghost" className="justify-start" onClick={() => {
+                    navigate('/admin');
+                    setIsMenuOpen(false);
+                  }}>
+                    My Dashboard
+                  </Button>
+                  <Button variant="ghost" className="justify-start" onClick={handleSignOut}>
+                    Sign Out
+                  </Button>
+                </>
               ) : (
                 <Button className="btn-gradient text-white" asChild>
                   <Link to="/auth">Sign In</Link>
