@@ -4,8 +4,6 @@ import TrendingEvents from "@/components/TrendingEvents";
 import VenueShowcase from "@/components/VenueShowcase";
 import BlogSection from "@/components/BlogSection";
 import PatatixCTA from "@/components/PatatixCTA";
-import LoyaltySystem from "@/components/LoyaltySystem";
-import VybzWallet from "@/components/VybzWallet";
 import Footer from "@/components/Footer";
 import concertVenue from "@/assets/concert-venue.jpg";
 import outdoorVenue from "@/assets/outdoor-venue.jpg";
@@ -63,8 +61,6 @@ const Index = () => {
         <TrendingEvents />
         <VenueShowcase />
         <PatatixCTA />
-        <LoyaltySystem />
-        <VybzWallet />
         <BlogSection posts={blogPosts} />
       </main>
       <Footer />
