@@ -108,13 +108,13 @@ const HeroSection = () => {
       <div className="relative z-10 pt-32 pb-8">
         <div className="text-center animate-fade-up px-4">
           {/* Large bold heading - Kaleidoscope style */}
-          <div className="mb-16">
-            <h1 className="text-[10rem] md:text-[15rem] lg:text-[20rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none overflow-hidden">
+          <div className="mb-12 relative">
+            <h1 className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none">
               VYBZ
             </h1>
           </div>
           
-          <h2 className="text-5xl md:text-7xl lg:text-9xl font-black text-white mb-8 leading-none tracking-tight uppercase">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-8 leading-tight tracking-tight uppercase">
             The Vybz Circle
           </h2>
           

@@ -29,7 +29,7 @@ const VenueSpotlight = ({
   upcomingEvents
 }: VenueSpotlightProps) => {
   return (
-    <Card className="group cursor-pointer hover-lift overflow-hidden shadow-card">
+    <Card className="group cursor-pointer hover-lift overflow-hidden bg-black/60 border-2 border-primary/30 hover:border-primary transition-all">
       <div className="relative h-56 overflow-hidden">
         <img
           src={image}
@@ -39,41 +39,41 @@ const VenueSpotlight = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
         
         <div className="absolute top-3 left-3">
-          <Badge className="bg-white/90 text-foreground">
+          <Badge className="bg-black border-2 border-primary text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider">
             {category}
           </Badge>
         </div>
 
         <div className="absolute bottom-3 left-3 right-3 text-white">
-          <h3 className="text-2xl font-bold mb-1">{name}</h3>
+          <h3 className="text-2xl font-black mb-1 uppercase tracking-tight">{name}</h3>
           <div className="flex items-center gap-2 text-sm">
-            <MapPin className="w-4 h-4" />
+            <MapPin className="w-4 h-4 text-primary" />
             <span>{location}</span>
           </div>
         </div>
 
-        <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 px-2 py-1 rounded-full">
-          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-          <span className="font-semibold text-foreground">{rating}</span>
+        <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/80 border border-primary/40 px-2 py-1 rounded-full">
+          <Star className="w-4 h-4 fill-primary text-primary" />
+          <span className="font-semibold text-white">{rating}</span>
         </div>
       </div>
 
-      <CardContent className="p-6">
-        <p className="text-muted-foreground mb-4 line-clamp-2">{description}</p>
+      <CardContent className="p-6 bg-black/40">
+        <p className="text-white/60 mb-4 line-clamp-2">{description}</p>
 
         <div className="space-y-2 text-sm">
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center gap-2 text-white/70">
             <Users className="w-4 h-4 text-primary" />
             <span className="font-medium">Capacity:</span>
             <span>{capacity}</span>
           </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center gap-2 text-white/70">
             <Phone className="w-4 h-4 text-primary" />
             <span className="font-medium">Contact:</span>
             <span>{contact}</span>
           </div>
           {website && (
-            <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="flex items-center gap-2 text-white/70">
               <Globe className="w-4 h-4 text-primary" />
               <span className="font-medium">Website:</span>
               <span className="truncate">{website}</span>
@@ -82,12 +82,12 @@ const VenueSpotlight = ({
         </div>
       </CardContent>
 
-      <CardFooter className="p-6 pt-0 flex items-center justify-between border-t border-border">
+      <CardFooter className="p-6 pt-0 flex items-center justify-between border-t border-primary/30 bg-black/40">
         <div className="flex items-center gap-2 text-sm">
           <Calendar className="w-4 h-4 text-primary" />
-          <span className="font-medium">{upcomingEvents} upcoming events</span>
+          <span className="font-medium text-white">{upcomingEvents} upcoming events</span>
         </div>
-        <Button className="btn-gradient text-white">
+        <Button className="bg-primary hover:bg-primary/80 text-black font-black uppercase tracking-wide">
           View Venue
         </Button>
       </CardFooter>
