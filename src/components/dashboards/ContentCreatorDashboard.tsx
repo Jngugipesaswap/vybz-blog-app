@@ -22,6 +22,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ActivityLogger } from "@/components/admin/ActivityLogger";
+import { CreatePostDialog } from "./CreatePostDialog";
+import { EditPostDialog } from "./EditPostDialog";
 
 interface ContentStats {
   totalPosts: number;
@@ -35,10 +37,16 @@ interface ContentStats {
 interface Post {
   id: string;
   title: string;
+  slug: string;
+  excerpt: string | null;
+  content: string | null;
   status: string;
   views_count: number;
   published_at: string | null;
   created_at: string;
+  featured_image: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
 }
 
 export function ContentCreatorDashboard() {
@@ -56,6 +64,9 @@ export function ContentCreatorDashboard() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [performanceData, setPerformanceData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -154,7 +165,16 @@ export function ContentCreatorDashboard() {
     }
   };
 
+  const handleEditPost = (post: Post) => {
+    setSelectedPost(post);
+    setEditDialogOpen(true);
+  };
+
   const handleDeletePost = async (postId: string) => {
+    if (!confirm("Are you sure you want to delete this post?")) {
+      return;
+    }
+
     try {
       const { error } = await supabase
         .from("posts")
@@ -221,7 +241,7 @@ export function ContentCreatorDashboard() {
           </h1>
           <p className="text-muted-foreground mt-2">Manage your content and track performance</p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2" onClick={() => setCreateDialogOpen(true)}>
           <PlusCircle className="h-4 w-4" />
           Create New Post
         </Button>
@@ -349,7 +369,11 @@ export function ContentCreatorDashboard() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button size="sm" variant="ghost">
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={() => handleEditPost(post)}
+                          >
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button 
@@ -432,6 +456,24 @@ export function ContentCreatorDashboard() {
         </TabsContent>
       </Tabs>
       </div>
+
+      {/* Dialogs */}
+      {user && (
+        <>
+          <CreatePostDialog
+            open={createDialogOpen}
+            onOpenChange={setCreateDialogOpen}
+            userId={user.id}
+            onSuccess={fetchContentData}
+          />
+          <EditPostDialog
+            open={editDialogOpen}
+            onOpenChange={setEditDialogOpen}
+            post={selectedPost}
+            onSuccess={fetchContentData}
+          />
+        </>
+      )}
     </div>
   );
 }
