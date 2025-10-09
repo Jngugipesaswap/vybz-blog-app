@@ -1,108 +1,58 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Award, TrendingUp } from "lucide-react";
-import { toast } from "sonner";
-
-interface LoyaltyPoint {
-  id: string;
-  user_id: string;
-  points: number;
-  total_earned: number;
-  total_spent: number;
-  tier: string;
-  created_at: string;
-}
+import { Trophy } from "lucide-react";
 
 export function LoyaltyManagement() {
-  const [loyaltyPoints, setLoyaltyPoints] = useState<LoyaltyPoint[]>([]);
-  const [profiles, setProfiles] = useState<Record<string, string>>({});
+  const [stats, setStats] = useState({ total: 0, transactions: 0 });
 
   useEffect(() => {
-    fetchLoyaltyPoints();
-    fetchProfiles();
+    fetchStats();
   }, []);
 
-  const fetchLoyaltyPoints = async () => {
-    const { data, error } = await supabase
-      .from("loyalty_points")
-      .select("*")
-      .order("points", { ascending: false });
+  const fetchStats = async () => {
+    const [points, transactions] = await Promise.all([
+      supabase.from("loyalty_points").select("points"),
+      supabase.from("loyalty_transactions").select("id", { count: "exact", head: true }),
+    ]);
 
-    if (error) {
-      toast.error("Failed to fetch loyalty points");
-      return;
-    }
+    const total = points.data?.reduce((sum, item) => sum + (item.points || 0), 0) || 0;
 
-    setLoyaltyPoints(data || []);
-  };
-
-  const fetchProfiles = async () => {
-    const { data } = await supabase.from("profiles").select("user_id, full_name");
-    const profilesMap: Record<string, string> = {};
-    data?.forEach((profile) => {
-      profilesMap[profile.user_id] = profile.full_name || "Unknown User";
+    setStats({
+      total,
+      transactions: transactions.count || 0,
     });
-    setProfiles(profilesMap);
-  };
-
-  const getTierColor = (tier: string) => {
-    const colors: Record<string, string> = {
-      bronze: "bg-orange-500",
-      silver: "bg-gray-400",
-      gold: "bg-yellow-500",
-      platinum: "bg-purple-500",
-    };
-    return colors[tier] || "bg-gray-500";
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Award className="h-5 w-5" />
-          Loyalty Points Management
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead>Current Points</TableHead>
-              <TableHead>Total Earned</TableHead>
-              <TableHead>Total Spent</TableHead>
-              <TableHead>Tier</TableHead>
-              <TableHead>Member Since</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loyaltyPoints.map((lp) => (
-              <TableRow key={lp.id}>
-                <TableCell className="font-medium">
-                  {profiles[lp.user_id] || "Loading..."}
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-green-500" />
-                    {lp.points.toLocaleString()}
-                  </div>
-                </TableCell>
-                <TableCell>{lp.total_earned.toLocaleString()}</TableCell>
-                <TableCell>{lp.total_spent.toLocaleString()}</TableCell>
-                <TableCell>
-                  <Badge className={getTierColor(lp.tier)}>
-                    {lp.tier.toUpperCase()}
-                  </Badge>
-                </TableCell>
-                <TableCell>{new Date(lp.created_at).toLocaleDateString()}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Loyalty Points</h1>
+        <p className="text-muted-foreground mt-1">Manage loyalty rewards</p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card className="glass-effect border-border/50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Trophy className="h-5 w-5 text-primary" />
+              Total Points
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-4xl font-bold">{stats.total}</div>
+          </CardContent>
+        </Card>
+
+        <Card className="glass-effect border-border/50">
+          <CardHeader>
+            <CardTitle>Total Transactions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-4xl font-bold">{stats.transactions}</div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

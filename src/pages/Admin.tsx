@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DashboardOverview } from "@/components/admin/DashboardOverview";
 import { PostManagement } from "@/components/admin/PostManagement";
 import { CategoryManagement } from "@/components/admin/CategoryManagement";
@@ -21,6 +23,7 @@ export default function Admin() {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [activeSection, setActiveSection] = useState("overview");
 
   useEffect(() => {
     const checkAdminStatus = async () => {
@@ -35,7 +38,7 @@ export default function Admin() {
           .select("role")
           .eq("user_id", user.id)
           .eq("role", "admin")
-          .single();
+          .maybeSingle();
 
         if (error || !data) {
           navigate("/");
@@ -58,8 +61,11 @@ export default function Admin() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-muted/30 to-background">
+        <div className="text-center space-y-4">
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
+          <p className="text-muted-foreground">Loading admin panel...</p>
+        </div>
       </div>
     );
   }
@@ -68,76 +74,50 @@ export default function Admin() {
     return null;
   }
 
+  const renderSection = () => {
+    switch (activeSection) {
+      case "overview":
+        return <DashboardOverview />;
+      case "posts":
+        return <PostManagement />;
+      case "categories":
+        return <CategoryManagement />;
+      case "tags":
+        return <TagManagement />;
+      case "media":
+        return <MediaManagement />;
+      case "comments":
+        return <CommentManagement />;
+      case "users":
+        return <UserManagement />;
+      case "loyalty":
+        return <LoyaltyManagement />;
+      case "wallets":
+        return <WalletManagement />;
+      case "analytics":
+        return <AnalyticsDashboard />;
+      case "settings":
+        return <SettingsManagement />;
+      default:
+        return <DashboardOverview />;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage your platform content and settings</p>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-background via-muted/20 to-background">
+        <AdminSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
+        
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <AdminHeader />
+          
+          <main className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
+            <div className="animate-fade-up">
+              {renderSection()}
+            </div>
+          </main>
         </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-6">
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid grid-cols-5 lg:grid-cols-11 gap-2">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="posts">Posts</TabsTrigger>
-            <TabsTrigger value="categories">Categories</TabsTrigger>
-            <TabsTrigger value="tags">Tags</TabsTrigger>
-            <TabsTrigger value="media">Media</TabsTrigger>
-            <TabsTrigger value="comments">Comments</TabsTrigger>
-            <TabsTrigger value="users">Users</TabsTrigger>
-            <TabsTrigger value="loyalty">Loyalty</TabsTrigger>
-            <TabsTrigger value="wallet">Wallets</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="overview">
-            <DashboardOverview />
-          </TabsContent>
-
-          <TabsContent value="posts">
-            <PostManagement />
-          </TabsContent>
-
-          <TabsContent value="categories">
-            <CategoryManagement />
-          </TabsContent>
-
-          <TabsContent value="tags">
-            <TagManagement />
-          </TabsContent>
-
-          <TabsContent value="media">
-            <MediaManagement />
-          </TabsContent>
-
-          <TabsContent value="comments">
-            <CommentManagement />
-          </TabsContent>
-
-          <TabsContent value="users">
-            <UserManagement />
-          </TabsContent>
-
-          <TabsContent value="loyalty">
-            <LoyaltyManagement />
-          </TabsContent>
-
-          <TabsContent value="wallet">
-            <WalletManagement />
-          </TabsContent>
-
-          <TabsContent value="analytics">
-            <AnalyticsDashboard />
-          </TabsContent>
-
-          <TabsContent value="settings">
-            <SettingsManagement />
-          </TabsContent>
-        </Tabs>
-      </main>
-    </div>
+      </div>
+    </SidebarProvider>
   );
 }
