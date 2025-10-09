@@ -45,27 +45,22 @@ const featuredVenues = [
 
 const VenueShowcase = () => {
   return (
-    <section id="venues" className="py-16 bg-muted/30">
+    <section id="venues" className="py-24 bg-black border-t-2 border-primary/30">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <MapPin className="w-6 h-6 text-primary" />
-              <Badge className="bg-accent text-white px-4 py-2">
-                Venue Spotlight
-              </Badge>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Premier <span className="text-gradient">Venues</span> in Nairobi
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl">
-              Discover the best entertainment venues across the city. From intimate settings to grand amphitheatres.
-            </p>
-          </div>
+        <div className="text-center mb-16">
+          <Badge className="mb-6 bg-black border-2 border-primary text-primary px-6 py-3 text-sm font-bold uppercase tracking-widest">
+            Venue Spotlight
+          </Badge>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 uppercase tracking-tight text-white">
+            Premier Venues
+          </h2>
+          <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto uppercase tracking-wide mb-8">
+            Discover the best entertainment venues across the city
+          </p>
           <div className="hidden md:block">
-            <Button variant="outline" className="hover:bg-primary hover:text-white">
+            <Button className="bg-black/80 hover:bg-primary/20 text-white border-2 border-primary/40 hover:border-primary px-8 py-4 font-black uppercase tracking-wider">
               Explore All Venues
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
         </div>
@@ -80,9 +75,9 @@ const VenueShowcase = () => {
         </div>
 
         <div className="text-center mt-12 md:hidden">
-          <Button variant="outline" className="hover:bg-primary hover:text-white w-full">
+          <Button className="bg-black/80 hover:bg-primary/20 text-white border-2 border-primary/40 hover:border-primary px-8 py-4 font-black uppercase tracking-wider w-full">
             Explore All Venues
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
       </div>
