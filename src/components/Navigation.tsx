@@ -18,13 +18,15 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, Calendar, MapPin, Users, FileText, Bot, Wallet, Trophy } from "lucide-react";
+import { Menu, X, Calendar, MapPin, Users, FileText, Bot, Wallet, Trophy, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { theme, setTheme } = useTheme();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -131,6 +133,16 @@ const Navigation = () => {
             </NavigationMenu>
 
             <Button variant="ghost" onClick={() => scrollToSection('blog')}>Blog</Button>
+            
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
             
             {user ? (
               <DropdownMenu>

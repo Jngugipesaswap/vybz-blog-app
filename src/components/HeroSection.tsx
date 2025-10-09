@@ -105,28 +105,28 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="relative z-10 pt-32 pb-12">
+      <div className="relative z-10 pt-24 pb-8">
         <div className="text-center animate-fade-up px-4">
           {/* Large bold heading - Kaleidoscope style */}
-          <div className="mb-8 relative">
-            <h1 className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none">
+          <div className="mb-6 relative">
+            <h1 className="text-[5rem] md:text-[8rem] lg:text-[12rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none">
               VYBZ
             </h1>
           </div>
           
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight uppercase">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight tracking-tight uppercase">
             The Vybz Circle
           </h2>
           
-          <p className="text-xl md:text-2xl text-primary font-bold mb-4 tracking-widest uppercase">
+          <p className="text-lg md:text-xl text-primary font-bold mb-3 tracking-widest uppercase">
             Kenya's Ultimate Entertainment Hub
           </p>
           
-          <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-light mb-12 tracking-wide">
+          <p className="text-sm md:text-base text-white/70 max-w-2xl mx-auto font-light mb-8 tracking-wide">
             From nightlife to family fun, conferences to cultural events
           </p>
 
-          <div className="max-w-4xl mx-auto mb-8">
+          <div className="max-w-4xl mx-auto mb-6">
             <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 border-4 border-primary shadow-2xl shadow-primary/20">
               <div className="flex items-center gap-4">
                 <Search className="w-6 h-6 text-primary ml-2 flex-shrink-0" />
