@@ -16,38 +16,39 @@ import { WalletManagement } from "@/components/admin/WalletManagement";
 import { CommentManagement } from "@/components/admin/CommentManagement";
 import { AnalyticsDashboard } from "@/components/admin/AnalyticsDashboard";
 import { SettingsManagement } from "@/components/admin/SettingsManagement";
+import { UserDashboard } from "@/components/dashboards/UserDashboard";
+import { ContentCreatorDashboard } from "@/components/dashboards/ContentCreatorDashboard";
 import { Loader2 } from "lucide-react";
 
 export default function Admin() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("overview");
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
+    const checkUserRole = async () => {
       if (!user) {
         navigate("/auth");
         return;
       }
 
       try {
+        // Use the get_user_role function to get the highest role
         const { data, error } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", user.id)
-          .eq("role", "admin")
-          .maybeSingle();
+          .rpc("get_user_role", { _user_id: user.id });
 
-        if (error || !data) {
+        if (error) throw error;
+
+        if (!data) {
           navigate("/");
           return;
         }
 
-        setIsAdmin(true);
+        setUserRole(data);
       } catch (error) {
-        console.error("Error checking admin status:", error);
+        console.error("Error checking user role:", error);
         navigate("/");
       } finally {
         setLoading(false);
@@ -55,7 +56,7 @@ export default function Admin() {
     };
 
     if (!authLoading) {
-      checkAdminStatus();
+      checkUserRole();
     }
   }, [user, authLoading, navigate]);
 
@@ -70,7 +71,21 @@ export default function Admin() {
     );
   }
 
-  if (!isAdmin) {
+  if (!userRole) {
+    return null;
+  }
+
+  // Route to appropriate dashboard based on role
+  if (userRole === 'user') {
+    return <UserDashboard />;
+  }
+
+  if (userRole === 'content_creator') {
+    return <ContentCreatorDashboard />;
+  }
+
+  // Only admin role gets access to the full admin panel
+  if (userRole !== 'admin') {
     return null;
   }
 

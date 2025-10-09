@@ -63,7 +63,7 @@ export function UserManagement() {
     setUserRoles(rolesMap);
   };
 
-  const handleRoleChange = async (userId: string, newRole: "admin" | "editor" | "author" | "contributor" | "subscriber") => {
+  const handleRoleChange = async (userId: string, newRole: "admin" | "content_creator" | "user") => {
     // First, remove existing role
     await supabase.from("user_roles").delete().eq("user_id", userId);
 
@@ -113,24 +113,22 @@ export function UserManagement() {
                   {userRoles[user.user_id]?.map((role) => (
                     <Badge key={role} variant="secondary" className="mr-1">
                       <Shield className="h-3 w-3 mr-1" />
-                      {role}
+                      {role === 'admin' ? 'Master Admin' : role === 'content_creator' ? 'Content Creator' : 'User'}
                     </Badge>
-                  )) || <Badge variant="outline">subscriber</Badge>}
+                  )) || <Badge variant="outline">User</Badge>}
                 </TableCell>
                 <TableCell>
                   <Select
-                    defaultValue={userRoles[user.user_id]?.[0] || "subscriber"}
-                    onValueChange={(value) => handleRoleChange(user.user_id, value as "admin" | "editor" | "author" | "contributor" | "subscriber")}
+                    defaultValue={userRoles[user.user_id]?.[0] || "user"}
+                    onValueChange={(value) => handleRoleChange(user.user_id, value as "admin" | "content_creator" | "user")}
                   >
-                    <SelectTrigger className="w-[150px]">
+                    <SelectTrigger className="w-[180px]">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="admin">Admin</SelectItem>
-                      <SelectItem value="editor">Editor</SelectItem>
-                      <SelectItem value="author">Author</SelectItem>
-                      <SelectItem value="contributor">Contributor</SelectItem>
-                      <SelectItem value="subscriber">Subscriber</SelectItem>
+                      <SelectItem value="admin">Master Admin</SelectItem>
+                      <SelectItem value="content_creator">Content Creator</SelectItem>
+                      <SelectItem value="user">User</SelectItem>
                     </SelectContent>
                   </Select>
                 </TableCell>
