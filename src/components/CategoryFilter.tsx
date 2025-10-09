@@ -46,13 +46,13 @@ const CategoryFilter = ({ onCategoryChange, activeCategory }: CategoryFilterProp
   ];
 
   return (
-    <section className="py-8 bg-background/50">
+    <section className="py-16 bg-black">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold mb-4">
-            Choose Your <span className="text-gradient">Vibe</span>
+        <div className="text-center mb-12">
+          <h3 className="text-4xl md:text-6xl font-black mb-4 uppercase tracking-tight text-white">
+            Choose Your <span className="text-primary">Vibe</span>
           </h3>
-          <p className="text-muted-foreground">
+          <p className="text-lg text-white/60 uppercase tracking-wide">
             Filter events by category to find exactly what you're looking for
           </p>
         </div>
@@ -66,23 +66,23 @@ const CategoryFilter = ({ onCategoryChange, activeCategory }: CategoryFilterProp
               <button
                 key={category.id}
                 onClick={() => onCategoryChange(category.id)}
-                className={`relative group p-6 rounded-2xl transition-all hover-lift ${
+                className={`relative group p-6 rounded-2xl transition-all ${
                   isActive 
-                    ? 'ring-2 ring-primary shadow-hover' 
-                    : 'bg-card shadow-card hover:shadow-hover'
+                    ? 'bg-black/60 border-2 border-primary' 
+                    : 'bg-black/60 border-2 border-primary/30 hover:border-primary'
                 }`}
               >
-                <div className={`w-12 h-12 rounded-xl ${category.color} flex items-center justify-center mb-3 mx-auto transition-transform group-hover:scale-110`}>
-                  <Icon className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-primary/20 border-2 border-primary flex items-center justify-center mb-3 mx-auto transition-transform group-hover:scale-110">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
                 
-                <h4 className="font-bold text-sm mb-1">{category.name}</h4>
+                <h4 className="font-black text-sm mb-1 uppercase tracking-wide text-white">{category.name}</h4>
                 {category.description && (
-                  <p className="text-xs text-muted-foreground">{category.description}</p>
+                  <p className="text-xs text-white/60">{category.description}</p>
                 )}
                 
                 {isActive && (
-                  <Badge className="absolute -top-2 -right-2 bg-primary text-white">
+                  <Badge className="absolute -top-2 -right-2 bg-primary text-black font-bold uppercase">
                     Active
                   </Badge>
                 )}
