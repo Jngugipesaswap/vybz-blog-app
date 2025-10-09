@@ -14,6 +14,377 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          parent_id: string | null
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          parent_id?: string | null
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          parent_id?: string | null
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      comments: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          parent_id: string | null
+          post_id: string
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          parent_id?: string | null
+          post_id: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          parent_id?: string | null
+          post_id?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      loyalty_points: {
+        Row: {
+          created_at: string | null
+          id: string
+          points: number | null
+          tier: string | null
+          total_earned: number | null
+          total_spent: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          points?: number | null
+          tier?: string | null
+          total_earned?: number | null
+          total_spent?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          points?: number | null
+          tier?: string | null
+          total_earned?: number | null
+          total_spent?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      loyalty_transactions: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          points: number
+          reference_id: string | null
+          transaction_type: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          points: number
+          reference_id?: string | null
+          transaction_type?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          points?: number
+          reference_id?: string | null
+          transaction_type?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      media: {
+        Row: {
+          alt_text: string | null
+          created_at: string | null
+          file_path: string
+          file_size: number | null
+          filename: string
+          height: number | null
+          id: string
+          mime_type: string | null
+          original_filename: string
+          uploaded_by: string | null
+          width: number | null
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string | null
+          file_path: string
+          file_size?: number | null
+          filename: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          original_filename: string
+          uploaded_by?: string | null
+          width?: number | null
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string | null
+          file_path?: string
+          file_size?: number | null
+          filename?: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          original_filename?: string
+          uploaded_by?: string | null
+          width?: number | null
+        }
+        Relationships: []
+      }
+      post_analytics: {
+        Row: {
+          avg_read_time: number | null
+          bounce_rate: number | null
+          created_at: string | null
+          date: string
+          id: string
+          post_id: string
+          shares: number | null
+          unique_views: number | null
+          views: number | null
+        }
+        Insert: {
+          avg_read_time?: number | null
+          bounce_rate?: number | null
+          created_at?: string | null
+          date: string
+          id?: string
+          post_id: string
+          shares?: number | null
+          unique_views?: number | null
+          views?: number | null
+        }
+        Update: {
+          avg_read_time?: number | null
+          bounce_rate?: number | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          post_id?: string
+          shares?: number | null
+          unique_views?: number | null
+          views?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_analytics_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_reactions: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string
+          reaction_type: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id: string
+          reaction_type?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          reaction_type?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_reactions_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_tags: {
+        Row: {
+          post_id: string
+          tag_id: string
+        }
+        Insert: {
+          post_id: string
+          tag_id: string
+        }
+        Update: {
+          post_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_tags_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          author_id: string | null
+          category_id: string | null
+          content: string | null
+          created_at: string | null
+          excerpt: string | null
+          featured_image: string | null
+          id: string
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_title: string | null
+          published_at: string | null
+          read_time: number | null
+          scheduled_at: string | null
+          slug: string
+          status: Database["public"]["Enums"]["post_status"] | null
+          title: string
+          updated_at: string | null
+          version: number | null
+          views_count: number | null
+        }
+        Insert: {
+          author_id?: string | null
+          category_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          excerpt?: string | null
+          featured_image?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          published_at?: string | null
+          read_time?: number | null
+          scheduled_at?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["post_status"] | null
+          title: string
+          updated_at?: string | null
+          version?: number | null
+          views_count?: number | null
+        }
+        Update: {
+          author_id?: string | null
+          category_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          excerpt?: string | null
+          featured_image?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          published_at?: string | null
+          read_time?: number | null
+          scheduled_at?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["post_status"] | null
+          title?: string
+          updated_at?: string | null
+          version?: number | null
+          views_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -41,15 +412,132 @@ export type Database = {
         }
         Relationships: []
       }
+      tags: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string | null
+          id: string
+          reference_id: string | null
+          status: string | null
+          transaction_type: string | null
+          wallet_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          status?: string | null
+          transaction_type?: string | null
+          wallet_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          status?: string | null
+          transaction_type?: string | null
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallets: {
+        Row: {
+          balance: number | null
+          created_at: string | null
+          currency: string | null
+          id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          balance?: number | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          balance?: number | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor" | "author" | "contributor" | "subscriber"
+      post_status: "draft" | "scheduled" | "published" | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -176,6 +664,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor", "author", "contributor", "subscriber"],
+      post_status: ["draft", "scheduled", "published", "archived"],
+    },
   },
 } as const
