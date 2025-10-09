@@ -33,7 +33,7 @@ const EventCard = ({
   const [isLiked, setIsLiked] = useState(false);
 
   return (
-    <Card className={`group cursor-pointer hover-lift overflow-hidden bg-black/60 border-2 transition-all ${
+    <Card className={`group cursor-pointer hover-lift overflow-hidden bg-card border-2 transition-all ${
       featured ? 'border-primary' : 'border-primary/30 hover:border-primary'
     }`}>
       <CardHeader className="p-0 relative">
@@ -44,12 +44,12 @@ const EventCard = ({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           {featured && (
-            <Badge className="absolute top-3 left-3 bg-primary text-black font-bold uppercase">
+            <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground font-bold uppercase">
               Featured
             </Badge>
           )}
           {ticketsLeft && ticketsLeft < 10 && (
-            <Badge className="absolute top-3 right-3 bg-destructive text-white font-bold uppercase">
+            <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground font-bold uppercase">
               Only {ticketsLeft} left!
             </Badge>
           )}
@@ -58,7 +58,7 @@ const EventCard = ({
               size="icon"
               variant="secondary"
               className={`w-9 h-9 rounded-full transition-all ${
-                isLiked ? 'bg-primary text-black' : 'bg-black/80 backdrop-blur-sm text-white border border-primary/40'
+                isLiked ? 'bg-primary text-primary-foreground' : 'bg-card/80 backdrop-blur-sm border border-primary/40'
               }`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -71,40 +71,40 @@ const EventCard = ({
         </div>
       </CardHeader>
       
-      <CardContent className="p-4 bg-black/40">
+      <CardContent className="p-4 bg-card/40">
         <div className="flex items-center justify-between mb-2">
-          <Badge className="text-xs bg-black border-2 border-primary text-primary px-3 py-1 font-bold uppercase tracking-wider">
+          <Badge className="text-xs bg-background border-2 border-primary text-primary px-3 py-1 font-bold uppercase tracking-wider">
             {category}
           </Badge>
         </div>
         
-        <h3 className="text-lg font-black mb-3 group-hover:text-primary transition-colors text-white uppercase tracking-tight">
+        <h3 className="text-lg font-black mb-3 group-hover:text-primary transition-colors uppercase tracking-tight">
           {title}
         </h3>
 
         <div className="space-y-2">
-          <div className="flex items-center text-sm text-white/70">
+          <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="w-4 h-4 mr-2 text-primary" />
             <span>{date}</span>
           </div>
-          <div className="flex items-center text-sm text-white/70">
+          <div className="flex items-center text-sm text-muted-foreground">
             <Clock className="w-4 h-4 mr-2 text-primary" />
             <span>{time}</span>
           </div>
-          <div className="flex items-center text-sm text-white/70">
+          <div className="flex items-center text-sm text-muted-foreground">
             <MapPin className="w-4 h-4 mr-2 text-primary" />
             <span>{venue}</span>
           </div>
         </div>
       </CardContent>
 
-      <CardFooter className="p-4 pt-0 flex items-center justify-between bg-black/40 border-t border-primary/30">
+      <CardFooter className="p-4 pt-0 flex items-center justify-between bg-card/40 border-t border-primary/30">
         <div className="flex flex-col">
-          <span className="text-xs text-white/60 uppercase tracking-wide">Starting from</span>
+          <span className="text-xs text-muted-foreground uppercase tracking-wide">Starting from</span>
           <span className="text-xl font-black text-primary">{price}</span>
         </div>
         <div className="flex gap-2">
-          <Button className="bg-primary hover:bg-primary/80 text-black font-black uppercase tracking-wide">
+          <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-black uppercase tracking-wide">
             <Ticket className="w-4 h-4 mr-2" />
             Get Tickets
           </Button>

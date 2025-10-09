@@ -45,20 +45,20 @@ const featuredVenues = [
 
 const VenueShowcase = () => {
   return (
-    <section id="venues" className="py-16 bg-black">
+    <section id="venues" className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge className="mb-6 bg-black border-2 border-primary text-primary px-6 py-3 text-sm font-bold uppercase tracking-widest">
+          <Badge className="mb-6 bg-background border-2 border-primary text-primary px-6 py-3 text-sm font-bold uppercase tracking-widest">
             Venue Spotlight
           </Badge>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 uppercase tracking-tight text-white">
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 uppercase tracking-tight text-foreground">
             Premier Venues
           </h2>
-          <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto uppercase tracking-wide mb-8">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto uppercase tracking-wide mb-8">
             Discover the best entertainment venues across the city
           </p>
           <div className="hidden md:block">
-            <Button className="bg-black/80 hover:bg-primary/20 text-white border-2 border-primary/40 hover:border-primary px-8 py-4 font-black uppercase tracking-wider">
+            <Button className="bg-card hover:bg-primary/20 border-2 border-primary/40 hover:border-primary px-8 py-4 font-black uppercase tracking-wider">
               Explore All Venues
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
@@ -75,7 +75,7 @@ const VenueShowcase = () => {
         </div>
 
         <div className="text-center mt-12 md:hidden">
-          <Button className="bg-black/80 hover:bg-primary/20 text-white border-2 border-primary/40 hover:border-primary px-8 py-4 font-black uppercase tracking-wider w-full">
+          <Button className="bg-card hover:bg-primary/20 border-2 border-primary/40 hover:border-primary px-8 py-4 font-black uppercase tracking-wider w-full">
             Explore All Venues
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>

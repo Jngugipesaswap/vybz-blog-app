@@ -37,16 +37,16 @@ const TrendingEvents = () => {
   const [activeCategory, setActiveCategory] = useState("all");
 
   return (
-    <section className="py-16 bg-black">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge className="mb-6 bg-black border-2 border-primary text-primary px-6 py-3 text-sm font-bold uppercase tracking-widest">
+          <Badge className="mb-6 bg-background border-2 border-primary text-primary px-6 py-3 text-sm font-bold uppercase tracking-widest">
             Trending Now
           </Badge>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 uppercase tracking-tight text-white">
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 uppercase tracking-tight text-foreground">
             Hot Events
           </h2>
-          <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto uppercase tracking-wide">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto uppercase tracking-wide">
             Don't miss out on the most popular events happening in Nairobi
           </p>
         </div>
@@ -60,7 +60,7 @@ const TrendingEvents = () => {
         </div>
 
         <div className="text-center mt-16">
-          <Button size="lg" className="bg-primary hover:bg-primary/80 text-black text-lg px-12 py-6 font-black uppercase tracking-wider">
+          <Button size="lg" className="bg-primary hover:bg-primary/80 text-primary-foreground text-lg px-12 py-6 font-black uppercase tracking-wider">
             View All Events
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>

@@ -27,10 +27,10 @@ const HeroSection = () => {
   const categoryFilters = ['+18 Events', 'Family Fun', 'Conferences', 'Venues', 'All Categories'];
 
   return (
-    <section className="relative h-screen flex flex-col justify-between overflow-hidden bg-black">
+    <section className="relative h-screen flex flex-col justify-between overflow-hidden bg-background">
       {/* Minimalist Dark Background with subtle effects */}
       <div className="absolute inset-0">
-        <div className="relative w-full h-full bg-black">
+        <div className="relative w-full h-full bg-background">
           {backgroundVideo ? (
             <video
               src={backgroundVideo}
@@ -54,7 +54,7 @@ const HeroSection = () => {
         </div>
 
         {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background"></div>
         
         {/* Large centered geometric shape - Kaleidoscope inspired */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-30">
@@ -72,7 +72,7 @@ const HeroSection = () => {
 
       <Button
         onClick={() => setShowVideoUpload(!showVideoUpload)}
-        className="absolute top-24 right-4 z-30 bg-black/60 border-primary/40 text-white hover:bg-primary/20 hover:border-primary"
+        className="absolute top-24 right-4 z-30 bg-card/60 border-primary/40 hover:bg-primary/20 hover:border-primary"
         size="sm"
         variant="outline"
       >
@@ -109,12 +109,12 @@ const HeroSection = () => {
         <div className="text-center animate-fade-up px-4">
           {/* Large bold heading - Kaleidoscope style */}
           <div className="mb-6 relative">
-            <h1 className="text-[5rem] md:text-[8rem] lg:text-[12rem] font-black text-white leading-none tracking-tighter opacity-10 select-none pointer-events-none">
+            <h1 className="text-[5rem] md:text-[8rem] lg:text-[12rem] font-black text-foreground leading-none tracking-tighter opacity-10 select-none pointer-events-none">
               VYBZ
             </h1>
           </div>
           
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight tracking-tight uppercase">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-foreground mb-4 leading-tight tracking-tight uppercase">
             The Vybz Circle
           </h2>
           
@@ -122,20 +122,20 @@ const HeroSection = () => {
             Kenya's Ultimate Entertainment Hub
           </p>
           
-          <p className="text-sm md:text-base text-white/70 max-w-2xl mx-auto font-light mb-8 tracking-wide">
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto font-light mb-8 tracking-wide">
             From nightlife to family fun, conferences to cultural events
           </p>
 
           <div className="max-w-4xl mx-auto mb-6">
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 border-4 border-primary shadow-2xl shadow-primary/20">
+            <div className="bg-card backdrop-blur-sm rounded-2xl p-4 border-4 border-primary shadow-2xl shadow-primary/20">
               <div className="flex items-center gap-4">
                 <Search className="w-6 h-6 text-primary ml-2 flex-shrink-0" />
                 <Input
                   placeholder="Search events, venues, experiences..."
-                  className="bg-transparent border-none text-black placeholder:text-black/50 text-lg py-6 px-2 focus-visible:ring-0 flex-1 font-medium"
+                  className="bg-transparent border-none text-foreground placeholder:text-muted-foreground text-lg py-6 px-2 focus-visible:ring-0 flex-1 font-medium"
                 />
                 <Button
-                  className="bg-primary hover:bg-primary/90 text-black px-10 py-6 font-black text-base uppercase tracking-wide transition-all shadow-lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 font-black text-base uppercase tracking-wide transition-all shadow-lg"
                   onClick={() => document.getElementById('trending-events')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Search
@@ -149,7 +149,7 @@ const HeroSection = () => {
                   key={category}
                   variant="outline"
                   size="sm"
-                  className="bg-black/80 text-white border-2 border-primary/60 hover:bg-primary hover:text-black px-6 py-3 text-sm font-bold uppercase tracking-wide transition-all"
+                  className="bg-card/80 border-2 border-primary/60 hover:bg-primary hover:text-primary-foreground px-6 py-3 text-sm font-bold uppercase tracking-wide transition-all"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {category}
@@ -165,21 +165,21 @@ const HeroSection = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-black text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
               onClick={() => document.getElementById('adult-events')?.scrollIntoView({ behavior: 'smooth' })}
             >
               +18 Events
             </Button>
             <Button
               size="lg"
-              className="bg-black/90 hover:bg-primary hover:text-black text-white text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
+              className="bg-card hover:bg-primary hover:text-primary-foreground text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
               onClick={() => document.getElementById('family-events')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Family Fun
             </Button>
             <Button
               size="lg"
-              className="bg-black/90 hover:bg-primary hover:text-black text-white text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
+              className="bg-card hover:bg-primary hover:text-primary-foreground text-xl px-12 py-10 font-black uppercase tracking-wider transition-all border-4 border-primary shadow-2xl shadow-primary/20"
               onClick={() => document.getElementById('conferences')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Conferences
@@ -190,9 +190,9 @@ const HeroSection = () => {
 
       {/* Minimalist ticker - Kaleidoscope style */}
       <div className="relative z-20">
-        <div className="bg-black py-4 overflow-hidden">
+        <div className="bg-background py-4 overflow-hidden border-t border-border">
           <div className="flex animate-ticker">
-            <div className="flex items-center whitespace-nowrap text-white/70 font-medium space-x-12 text-base uppercase tracking-widest">
+            <div className="flex items-center whitespace-nowrap text-muted-foreground font-medium space-x-12 text-base uppercase tracking-widest">
               <span className="flex items-center">
                 <Flame className="w-5 h-5 mr-2 text-primary" />
                 1,200 tickets sold today
@@ -210,7 +210,7 @@ const HeroSection = () => {
                 500+ browsing
               </span>
             </div>
-            <div className="flex items-center whitespace-nowrap text-white/70 font-medium space-x-12 text-base uppercase tracking-widest ml-12">
+            <div className="flex items-center whitespace-nowrap text-muted-foreground font-medium space-x-12 text-base uppercase tracking-widest ml-12">
               <span className="flex items-center">
                 <Flame className="w-5 h-5 mr-2 text-primary" />
                 1,200 tickets sold today
