@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MapPin, Star, Users, Phone, Globe, Calendar } from "lucide-react";
+import SocialShare from "@/components/SocialShare";
 
 interface VenueSpotlightProps {
   name: string;
@@ -61,7 +62,7 @@ const VenueSpotlight = ({
       <CardContent className="p-6 bg-card/40">
         <p className="text-muted-foreground mb-4 line-clamp-2">{description}</p>
 
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-sm mb-4">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Users className="w-4 h-4 text-primary" />
             <span className="font-medium">Capacity:</span>
@@ -80,6 +81,11 @@ const VenueSpotlight = ({
             </div>
           )}
         </div>
+
+        <SocialShare 
+          title={name}
+          description={`${category} venue in ${location}`}
+        />
       </CardContent>
 
       <CardFooter className="p-6 pt-0 flex items-center justify-between bg-card/40">

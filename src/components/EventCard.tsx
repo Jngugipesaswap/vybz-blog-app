@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Calendar, MapPin, Clock, Ticket, Heart } from "lucide-react";
 import { useState } from "react";
-import ShareButton from "@/components/ShareButton";
+import SocialShare from "@/components/SocialShare";
 
 interface EventCardProps {
   id: string;
@@ -80,7 +80,7 @@ const EventCard = ({
           {title}
         </h3>
 
-        <div className="space-y-2">
+        <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="w-4 h-4 mr-2 text-primary" />
             <span>{date}</span>
@@ -94,6 +94,11 @@ const EventCard = ({
             <span>{venue}</span>
           </div>
         </div>
+
+        <SocialShare 
+          title={title}
+          description={`${category} event at ${venue} on ${date}`}
+        />
       </CardContent>
 
       <CardFooter className="p-4 pt-0 flex items-center justify-between bg-card/40">
@@ -101,16 +106,10 @@ const EventCard = ({
           <span className="text-xs text-muted-foreground uppercase tracking-wide">Starting from</span>
           <span className="text-xl font-black text-primary">{price}</span>
         </div>
-        <div className="flex gap-2">
-          <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-black uppercase tracking-wide">
-            <Ticket className="w-4 h-4 mr-2" />
-            Get Tickets
-          </Button>
-          <ShareButton 
-            title={title}
-            description={`${category} event at ${venue} on ${date}`}
-          />
-        </div>
+        <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-black uppercase tracking-wide">
+          <Ticket className="w-4 h-4 mr-2" />
+          Get Tickets
+        </Button>
       </CardFooter>
     </Card>
   );
