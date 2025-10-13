@@ -18,6 +18,8 @@ import { useToast } from "@/hooks/use-toast";
 import { WalletDialog } from "./WalletDialog";
 import { RedeemPointsDialog } from "./RedeemPointsDialog";
 import { EditProfileDialog } from "./EditProfileDialog";
+import ManageSocialLinksDialog from "./ManageSocialLinksDialog";
+import SocialLinksDisplay from "@/components/SocialLinksDisplay";
 
 interface UserStats {
   commentsCount: number;
@@ -48,6 +50,7 @@ export function UserDashboard() {
   });
   const [activityData, setActivityData] = useState<ActivityData[]>([]);
   const [profile, setProfile] = useState<any>(null);
+  const [socialLinks, setSocialLinks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Dialog states
@@ -116,6 +119,14 @@ export function UserDashboard() {
         .select("balance")
         .eq("user_id", user!.id)
         .single();
+
+      // Fetch social links
+      const { data: socialLinksData } = await supabase
+        .from("social_links")
+        .select("*")
+        .eq("user_id", user!.id);
+      
+      setSocialLinks(socialLinksData || []);
 
       // Calculate days since joining
       const joinDate = new Date(profileData?.created_at || Date.now());
@@ -462,9 +473,19 @@ export function UserDashboard() {
                 </div>
               </div>
 
-              <Button className="w-full mt-4" onClick={() => setEditProfileDialogOpen(true)}>
-                Edit Profile
-              </Button>
+              {socialLinks.length > 0 && (
+                <div className="space-y-2 pt-4 border-t">
+                  <p className="text-sm text-muted-foreground">Social Media</p>
+                  <SocialLinksDisplay socialLinks={socialLinks} size="md" />
+                </div>
+              )}
+
+              <div className="flex gap-2 mt-4">
+                <Button className="flex-1" onClick={() => setEditProfileDialogOpen(true)}>
+                  Edit Profile
+                </Button>
+                <ManageSocialLinksDialog />
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

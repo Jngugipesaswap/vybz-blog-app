@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { Chrome, Loader2 } from "lucide-react";
+import { Chrome, Loader2, Facebook, Apple } from "lucide-react";
 import { z } from "zod";
 
 const emailSchema = z.string().email("Invalid email address");
@@ -18,7 +18,7 @@ const nameSchema = z.string().min(2, "Name must be at least 2 characters");
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, signIn, signUp, signInWithGoogle } = useAuth();
+  const { user, signIn, signUp, signInWithGoogle, signInWithFacebook, signInWithApple, signInWithTwitter } = useAuth();
   const [loading, setLoading] = useState(false);
 
   // Login form state
@@ -147,6 +147,48 @@ const Auth = () => {
     }
   };
 
+  const handleFacebookSignIn = async () => {
+    setLoading(true);
+    const { error } = await signInWithFacebook();
+    
+    if (error) {
+      toast({
+        title: "Facebook Sign-In Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
+  };
+
+  const handleAppleSignIn = async () => {
+    setLoading(true);
+    const { error } = await signInWithApple();
+    
+    if (error) {
+      toast({
+        title: "Apple Sign-In Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
+  };
+
+  const handleTwitterSignIn = async () => {
+    setLoading(true);
+    const { error } = await signInWithTwitter();
+    
+    if (error) {
+      toast({
+        title: "X Sign-In Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4 py-12">
       <div className="w-full max-w-md">
@@ -262,15 +304,51 @@ const Auth = () => {
               </div>
             </div>
 
-            <Button
-              onClick={handleGoogleSignIn}
-              variant="outline"
-              className="w-full"
-              disabled={loading}
-            >
-              <Chrome className="w-4 h-4 mr-2" />
-              Google
-            </Button>
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                onClick={handleGoogleSignIn}
+                variant="outline"
+                className="w-full"
+                disabled={loading}
+              >
+                <Chrome className="w-4 h-4 mr-2" />
+                Google
+              </Button>
+
+              <Button
+                onClick={handleFacebookSignIn}
+                variant="outline"
+                className="w-full"
+                disabled={loading}
+              >
+                <Facebook className="w-4 h-4 mr-2" />
+                Facebook
+              </Button>
+
+              <Button
+                onClick={handleAppleSignIn}
+                variant="outline"
+                className="w-full"
+                disabled={loading}
+              >
+                <Apple className="w-4 h-4 mr-2" />
+                Apple
+              </Button>
+
+              <Button
+                onClick={handleTwitterSignIn}
+                variant="outline"
+                className="w-full"
+                disabled={loading}
+              >
+                <span className="mr-2">𝕏</span>
+                X (Twitter)
+              </Button>
+            </div>
+
+            <p className="text-xs text-center text-muted-foreground mt-4">
+              Note: Instagram and Snapchat login available in mobile app
+            </p>
           </CardContent>
         </Card>
       </div>

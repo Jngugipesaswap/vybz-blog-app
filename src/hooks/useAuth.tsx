@@ -62,6 +62,39 @@ export const useAuth = () => {
     return { data, error };
   };
 
+  const signInWithFacebook = async () => {
+    const redirectUrl = `${window.location.origin}/`;
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'facebook',
+      options: {
+        redirectTo: redirectUrl,
+      }
+    });
+    return { data, error };
+  };
+
+  const signInWithApple = async () => {
+    const redirectUrl = `${window.location.origin}/`;
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'apple',
+      options: {
+        redirectTo: redirectUrl,
+      }
+    });
+    return { data, error };
+  };
+
+  const signInWithTwitter = async () => {
+    const redirectUrl = `${window.location.origin}/`;
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'twitter',
+      options: {
+        redirectTo: redirectUrl,
+      }
+    });
+    return { data, error };
+  };
+
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     return { error };
@@ -74,6 +107,9 @@ export const useAuth = () => {
     signUp,
     signIn,
     signInWithGoogle,
+    signInWithFacebook,
+    signInWithApple,
+    signInWithTwitter,
     signOut,
   };
 };

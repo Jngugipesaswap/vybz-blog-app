@@ -412,6 +412,36 @@ export type Database = {
         }
         Relationships: []
       }
+      social_links: {
+        Row: {
+          created_at: string
+          id: string
+          platform: string
+          updated_at: string
+          url: string
+          user_id: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          platform: string
+          updated_at?: string
+          url: string
+          user_id: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          platform?: string
+          updated_at?: string
+          url?: string
+          user_id?: string
+          username?: string
+        }
+        Relationships: []
+      }
       tags: {
         Row: {
           created_at: string | null
