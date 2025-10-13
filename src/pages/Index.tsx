@@ -3,7 +3,6 @@ import HeroSection from "@/components/HeroSection";
 import TrendingEvents from "@/components/TrendingEvents";
 import VenueShowcase from "@/components/VenueShowcase";
 import BlogSection from "@/components/BlogSection";
-import PatatixCTA from "@/components/PatatixCTA";
 import Footer from "@/components/Footer";
 import concertVenue from "@/assets/concert-venue.jpg";
 import outdoorVenue from "@/assets/outdoor-venue.jpg";
@@ -60,7 +59,6 @@ const Index = () => {
         <HeroSection />
         <TrendingEvents />
         <VenueShowcase />
-        <PatatixCTA />
         <BlogSection posts={blogPosts} />
       </main>
       <Footer />
