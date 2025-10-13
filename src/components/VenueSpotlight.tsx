@@ -29,7 +29,7 @@ const VenueSpotlight = ({
   upcomingEvents
 }: VenueSpotlightProps) => {
   return (
-    <Card className="group cursor-pointer hover-lift overflow-hidden bg-card border-2 border-primary/30 hover:border-primary transition-all">
+    <Card className="group cursor-pointer hover-lift overflow-hidden bg-card shadow-none border-0 transition-all">
       <div className="relative h-56 overflow-hidden">
         <img
           src={image}
@@ -82,7 +82,7 @@ const VenueSpotlight = ({
         </div>
       </CardContent>
 
-      <CardFooter className="p-6 pt-0 flex items-center justify-between border-t border-primary/30 bg-card/40">
+      <CardFooter className="p-6 pt-0 flex items-center justify-between bg-card/40">
         <div className="flex items-center gap-2 text-sm">
           <Calendar className="w-4 h-4 text-primary" />
           <span className="font-medium">{upcomingEvents} upcoming events</span>

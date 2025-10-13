@@ -33,9 +33,7 @@ const EventCard = ({
   const [isLiked, setIsLiked] = useState(false);
 
   return (
-    <Card className={`group cursor-pointer hover-lift overflow-hidden bg-card border-2 transition-all ${
-      featured ? 'border-primary' : 'border-primary/30 hover:border-primary'
-    }`}>
+    <Card className="group cursor-pointer hover-lift overflow-hidden bg-card shadow-none border-0 transition-all">
       <CardHeader className="p-0 relative">
         <div className="relative h-48 overflow-hidden">
           <img
@@ -98,7 +96,7 @@ const EventCard = ({
         </div>
       </CardContent>
 
-      <CardFooter className="p-4 pt-0 flex items-center justify-between bg-card/40 border-t border-primary/30">
+      <CardFooter className="p-4 pt-0 flex items-center justify-between bg-card/40">
         <div className="flex flex-col">
           <span className="text-xs text-muted-foreground uppercase tracking-wide">Starting from</span>
           <span className="text-xl font-black text-primary">{price}</span>

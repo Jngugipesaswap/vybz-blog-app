@@ -66,13 +66,7 @@ const BlogSection = ({ posts }: BlogSectionProps) => {
               className={`${post.featured ? 'lg:col-span-2 lg:row-span-1' : ''}`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <Card
-                className={`group cursor-pointer overflow-hidden h-full transition-all duration-500 bg-card backdrop-blur-sm ${
-                  post.featured 
-                    ? 'border-2 border-primary' 
-                    : 'border-2 border-primary/30 hover:border-primary'
-                }`}
-              >
+              <Card className="group cursor-pointer overflow-hidden h-full transition-all duration-500 bg-card backdrop-blur-sm shadow-none border-0">
                 <CardHeader className="p-0 relative">
                   <div className={`relative overflow-hidden ${post.featured ? 'h-64 sm:h-80' : 'h-56 sm:h-64'}`}>
                     <img
@@ -123,7 +117,7 @@ const BlogSection = ({ posts }: BlogSectionProps) => {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-5 border-t-2 border-primary/20">
+                  <div className="flex items-center justify-between pt-5">
                     <div className="flex items-center gap-4 sm:gap-5">
                       <button
                         onClick={(e) => {
