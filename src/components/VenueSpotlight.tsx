@@ -85,6 +85,7 @@ const VenueSpotlight = ({
         <SocialShare 
           title={name}
           description={`${category} venue in ${location}`}
+          imageUrl={image}
         />
       </CardContent>
 

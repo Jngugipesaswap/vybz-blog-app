@@ -142,6 +142,7 @@ const BlogSection = ({ posts }: BlogSectionProps) => {
                     <SocialShare 
                       title={post.title}
                       description={post.excerpt}
+                      imageUrl={post.image}
                     />
 
                     <Button size="sm" className="bg-primary hover:bg-primary/80 text-primary-foreground font-black text-sm sm:text-base px-5 py-2 uppercase w-full sm:w-auto">

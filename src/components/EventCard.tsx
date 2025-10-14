@@ -98,6 +98,7 @@ const EventCard = ({
         <SocialShare 
           title={title}
           description={`${category} event at ${venue} on ${date}`}
+          imageUrl={image}
         />
       </CardContent>
 
