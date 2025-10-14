@@ -1,51 +1,109 @@
 import { Link2, QrCode } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useShareTracking } from "@/hooks/useShareTracking";
+import { useAuth } from "@/hooks/useAuth";
 
 interface SocialShareProps {
   title: string;
   description?: string;
   url?: string;
-  imageUrl?: string; // For story sharing
+  imageUrl?: string;
+  contentType?: 'event' | 'venue' | 'post';
+  contentId?: string;
 }
 
-const SocialShare = ({ title, description = "", url, imageUrl }: SocialShareProps) => {
-  const shareUrl = url || window.location.href;
-  const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(title);
-  const shareText = encodeURIComponent(`${title} - ${description}`);
+const SocialShare = ({ title, description = "", url, imageUrl, contentType, contentId }: SocialShareProps) => {
+  const { user } = useAuth();
+  const { createShareLink, trackEvent } = useShareTracking();
   const { toast } = useToast();
   const [qrDialogOpen, setQrDialogOpen] = useState(false);
+  const [trackedUrls, setTrackedUrls] = useState<Record<string, string>>({});
+  
+  const baseUrl = url || window.location.href;
+
+  useEffect(() => {
+    // Track view event if there's a tracking code in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const trackingCode = urlParams.get('ref');
+    if (trackingCode) {
+      trackEvent(trackingCode, 'view');
+    }
+  }, []);
+
+  const getTrackedUrl = async (platform: string) => {
+    // Return cached URL if already generated
+    if (trackedUrls[platform]) {
+      return trackedUrls[platform];
+    }
+
+    // If user is logged in and content info is provided, create tracking link
+    if (user && contentType && contentId) {
+      const trackingCode = await createShareLink({
+        contentType,
+        contentId,
+        sharePlatform: platform,
+        userId: user.id
+      });
+
+      if (trackingCode) {
+        const trackedUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}ref=${trackingCode}`;
+        setTrackedUrls(prev => ({ ...prev, [platform]: trackedUrl }));
+        return trackedUrl;
+      }
+    }
+
+    return baseUrl;
+  };
+
+  const handleShare = async (platform: string, platformUrl: string) => {
+    const trackedUrl = await getTrackedUrl(platform);
+    const encodedUrl = encodeURIComponent(trackedUrl);
+    const encodedTitle = encodeURIComponent(title);
+    const shareText = encodeURIComponent(`${title} - ${description}`);
+    
+    // Replace the URL placeholder in platform URL
+    const finalUrl = platformUrl
+      .replace(encodeURIComponent(baseUrl), encodedUrl)
+      .replace(baseUrl, trackedUrl);
+    
+    window.open(finalUrl, "_blank", "width=600,height=400");
+  };
 
   const platforms = [
     {
       name: "WhatsApp",
       icon: "💬",
-      url: `https://wa.me/?text=${shareText}%20${encodedUrl}`,
+      url: `https://wa.me/?text=`,
+      platform: "whatsapp"
     },
     {
       name: "Instagram",
       icon: "📷",
-      url: `https://www.instagram.com/`, // Instagram doesn't support direct web sharing
+      url: `https://www.instagram.com/`,
+      platform: "instagram"
     },
     {
       name: "X",
       icon: "𝕏",
-      url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+      url: `https://twitter.com/intent/tweet?url=`,
+      platform: "twitter"
     },
     {
       name: "Snapchat",
       icon: "👻",
-      url: `https://www.snapchat.com/scan?attachmentUrl=${encodedUrl}`,
+      url: `https://www.snapchat.com/scan?attachmentUrl=`,
+      platform: "snapchat"
     },
     {
       name: "Facebook",
       icon: "📘",
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      url: `https://www.facebook.com/sharer/sharer.php?u=`,
+      platform: "facebook"
     },
   ];
 
@@ -53,27 +111,27 @@ const SocialShare = ({ title, description = "", url, imageUrl }: SocialShareProp
     {
       name: "Instagram Story",
       icon: "📸",
-      url: `instagram-stories://share?source_application=&background_image=${encodeURIComponent(imageUrl)}&content_url=${encodedUrl}`,
+      url: `instagram-stories://share?source_application=&background_image=${encodeURIComponent(imageUrl)}&content_url=`,
       fallback: `https://www.instagram.com/`,
+      platform: "instagram_story"
     },
     {
       name: "Snapchat Story",
       icon: "👻",
-      url: `https://www.snapchat.com/scan?attachmentUrl=${encodedUrl}`,
+      url: `https://www.snapchat.com/scan?attachmentUrl=`,
+      platform: "snapchat_story"
     },
     {
       name: "Facebook Story",
       icon: "📖",
-      url: `https://www.facebook.com/stories/create/?media_url=${encodeURIComponent(imageUrl)}&url=${encodedUrl}`,
+      url: `https://www.facebook.com/stories/create/?media_url=${encodeURIComponent(imageUrl)}&url=`,
+      platform: "facebook_story"
     },
   ] : [];
 
-  const handleShare = (platformUrl: string) => {
-    window.open(platformUrl, "_blank", "width=600,height=400");
-  };
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(shareUrl);
+  const handleCopyLink = async () => {
+    const trackedUrl = await getTrackedUrl('copy_link');
+    navigator.clipboard.writeText(trackedUrl);
     toast({
       title: "Link Copied!",
       description: "The link has been copied to your clipboard.",
@@ -113,18 +171,18 @@ const SocialShare = ({ title, description = "", url, imageUrl }: SocialShareProp
     <div className="space-y-2">
       {/* Regular Share Options */}
       <div className="flex items-center gap-3">
-        {platforms.map((platform) => (
+        {platforms.map((platformData) => (
           <button
-            key={platform.name}
+            key={platformData.name}
             onClick={(e) => {
               e.stopPropagation();
-              handleShare(platform.url);
+              handleShare(platformData.platform, platformData.url);
             }}
             className="text-xl text-foreground hover:scale-125 transition-transform duration-200"
-            aria-label={`Share on ${platform.name}`}
-            title={`Share on ${platform.name}`}
+            aria-label={`Share on ${platformData.name}`}
+            title={`Share on ${platformData.name}`}
           >
-            {platform.icon}
+            {platformData.icon}
           </button>
         ))}
         
@@ -161,7 +219,7 @@ const SocialShare = ({ title, description = "", url, imageUrl }: SocialShareProp
               <div className="bg-white p-4 rounded-lg">
                 <QRCodeSVG
                   id="qr-code-svg"
-                  value={shareUrl}
+                  value={baseUrl}
                   size={256}
                   level="H"
                   includeMargin={true}
@@ -184,13 +242,13 @@ const SocialShare = ({ title, description = "", url, imageUrl }: SocialShareProp
           <Separator className="my-2" />
           <div className="flex items-center gap-3">
             <span className="text-xs text-muted-foreground">Stories:</span>
-            {storyPlatforms.map((platform) => (
+            {storyPlatforms.map((platformData) => (
               <button
-                key={platform.name}
+                key={platformData.name}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleShare(platform.url);
-                  if ('fallback' in platform) {
+                  handleShare(platformData.platform, platformData.url);
+                  if ('fallback' in platformData) {
                     toast({
                       title: "Tip",
                       description: `Open this link on mobile with Instagram app installed for best results.`,
@@ -198,10 +256,10 @@ const SocialShare = ({ title, description = "", url, imageUrl }: SocialShareProp
                   }
                 }}
                 className="text-xl text-foreground hover:scale-125 transition-transform duration-200"
-                aria-label={`Share to ${platform.name}`}
-                title={`Share to ${platform.name}`}
+                aria-label={`Share to ${platformData.name}`}
+                title={`Share to ${platformData.name}`}
               >
-                {platform.icon}
+                {platformData.icon}
               </button>
             ))}
           </div>

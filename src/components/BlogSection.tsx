@@ -139,11 +139,13 @@ const BlogSection = ({ posts }: BlogSectionProps) => {
                       </div>
                     </div>
 
-                    <SocialShare 
-                      title={post.title}
-                      description={post.excerpt}
-                      imageUrl={post.image}
-                    />
+              <SocialShare 
+                title={post.title} 
+                description={post.excerpt}
+                imageUrl={post.image}
+                contentType="post"
+                contentId={post.id}
+              />
 
                     <Button size="sm" className="bg-primary hover:bg-primary/80 text-primary-foreground font-black text-sm sm:text-base px-5 py-2 uppercase w-full sm:w-auto">
                       <span className="hidden sm:inline">Read</span>

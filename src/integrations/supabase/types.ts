@@ -412,6 +412,77 @@ export type Database = {
         }
         Relationships: []
       }
+      share_analytics: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          id: string
+          ip_address: string | null
+          referrer: string | null
+          share_link_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          id?: string
+          ip_address?: string | null
+          referrer?: string | null
+          share_link_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          id?: string
+          ip_address?: string | null
+          referrer?: string | null
+          share_link_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "share_analytics_share_link_id_fkey"
+            columns: ["share_link_id"]
+            isOneToOne: false
+            referencedRelation: "share_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      share_links: {
+        Row: {
+          content_id: string
+          content_type: string
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          share_platform: string
+          tracking_code: string
+          user_id: string
+        }
+        Insert: {
+          content_id: string
+          content_type: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          share_platform: string
+          tracking_code: string
+          user_id: string
+        }
+        Update: {
+          content_id?: string
+          content_type?: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          share_platform?: string
+          tracking_code?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       social_links: {
         Row: {
           created_at: string
