@@ -16,6 +16,7 @@ import { WalletManagement } from "@/components/admin/WalletManagement";
 import { CommentManagement } from "@/components/admin/CommentManagement";
 import { AnalyticsDashboard } from "@/components/admin/AnalyticsDashboard";
 import { SettingsManagement } from "@/components/admin/SettingsManagement";
+import { ContentModeration } from "@/components/admin/ContentModeration";
 import { UserDashboard } from "@/components/dashboards/UserDashboard";
 import { ContentCreatorDashboard } from "@/components/dashboards/ContentCreatorDashboard";
 import { Loader2 } from "lucide-react";
@@ -111,6 +112,8 @@ export default function Admin() {
         return <LoyaltyManagement />;
       case "wallets":
         return <WalletManagement />;
+      case "moderation":
+        return <ContentModeration />;
       case "analytics":
         return <AnalyticsDashboard />;
       case "settings":

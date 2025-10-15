@@ -10,6 +10,7 @@ import {
   Wallet,
   BarChart3,
   Settings,
+  ShieldCheck,
 } from "lucide-react";
 import {
   Sidebar,
@@ -39,6 +40,7 @@ const menuItems = [
       { id: "tags", label: "Tags", icon: Tag },
       { id: "media", label: "Media Library", icon: Image },
       { id: "comments", label: "Comments", icon: MessageSquare },
+      { id: "moderation", label: "Content Moderation", icon: ShieldCheck },
     ],
   },
   {

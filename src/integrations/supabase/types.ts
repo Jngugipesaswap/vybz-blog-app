@@ -412,6 +412,77 @@ export type Database = {
         }
         Relationships: []
       }
+      review_helpful: {
+        Row: {
+          created_at: string | null
+          id: string
+          review_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          review_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          review_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_helpful_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "reviews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reviews: {
+        Row: {
+          content: string
+          created_at: string | null
+          helpful_count: number | null
+          id: string
+          rating: number
+          reference_id: string
+          review_type: string
+          status: string
+          title: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          helpful_count?: number | null
+          id?: string
+          rating: number
+          reference_id: string
+          review_type: string
+          status?: string
+          title?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          helpful_count?: number | null
+          id?: string
+          rating?: number
+          reference_id?: string
+          review_type?: string
+          status?: string
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       share_analytics: {
         Row: {
           created_at: string | null
@@ -531,6 +602,60 @@ export type Database = {
           id?: string
           name?: string
           slug?: string
+        }
+        Relationships: []
+      }
+      user_content: {
+        Row: {
+          content_reference_id: string
+          content_reference_type: string
+          content_type: string
+          content_url: string
+          created_at: string | null
+          description: string | null
+          id: string
+          moderated_at: string | null
+          moderated_by: string | null
+          moderation_notes: string | null
+          status: string
+          thumbnail_url: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content_reference_id: string
+          content_reference_type: string
+          content_type: string
+          content_url: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          moderated_at?: string | null
+          moderated_by?: string | null
+          moderation_notes?: string | null
+          status?: string
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content_reference_id?: string
+          content_reference_type?: string
+          content_type?: string
+          content_url?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          moderated_at?: string | null
+          moderated_by?: string | null
+          moderation_notes?: string | null
+          status?: string
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }

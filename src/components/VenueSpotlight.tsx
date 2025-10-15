@@ -86,6 +86,8 @@ const VenueSpotlight = ({
           title={name}
           description={`${category} venue in ${location}`}
           imageUrl={image}
+          contentType="venue"
+          contentId={name.toLowerCase().replace(/\s+/g, '-')}
         />
       </CardContent>
 
