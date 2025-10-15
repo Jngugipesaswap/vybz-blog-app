@@ -20,6 +20,10 @@ import { RedeemPointsDialog } from "./RedeemPointsDialog";
 import { EditProfileDialog } from "./EditProfileDialog";
 import ManageSocialLinksDialog from "./ManageSocialLinksDialog";
 import SocialLinksDisplay from "@/components/SocialLinksDisplay";
+import { ChallengesWidget } from "@/components/gamification/ChallengesWidget";
+import { AchievementsList } from "@/components/gamification/AchievementsList";
+import { LeaderboardView } from "@/components/gamification/LeaderboardView";
+import { StreakTracker } from "@/components/gamification/StreakTracker";
 
 interface UserStats {
   commentsCount: number;
@@ -283,9 +287,11 @@ export function UserDashboard() {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="activity" className="space-y-4">
-        <TabsList className="grid w-full max-w-md grid-cols-3">
+        <TabsList className="grid w-full max-w-3xl grid-cols-5">
           <TabsTrigger value="activity">Activity</TabsTrigger>
           <TabsTrigger value="rewards">Rewards</TabsTrigger>
+          <TabsTrigger value="challenges">Challenges</TabsTrigger>
+          <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
           <TabsTrigger value="profile">Profile</TabsTrigger>
         </TabsList>
 
@@ -427,6 +433,22 @@ export function UserDashboard() {
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+
+        {/* Challenges Tab */}
+        <TabsContent value="challenges" className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
+            <ChallengesWidget />
+            <div className="space-y-4">
+              <StreakTracker />
+              <AchievementsList />
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* Leaderboard Tab */}
+        <TabsContent value="leaderboard" className="space-y-4">
+          <LeaderboardView />
         </TabsContent>
 
         {/* Profile Tab */}

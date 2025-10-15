@@ -11,6 +11,7 @@ import {
   BarChart3,
   Settings,
   ShieldCheck,
+  Gamepad2,
 } from "lucide-react";
 import {
   Sidebar,
@@ -49,6 +50,7 @@ const menuItems = [
       { id: "users", label: "Users", icon: Users },
       { id: "loyalty", label: "Loyalty Points", icon: Trophy },
       { id: "wallets", label: "Wallets", icon: Wallet },
+      { id: "gamification", label: "Gamification", icon: Gamepad2 },
     ],
   },
   {
