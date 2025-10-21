@@ -18,6 +18,7 @@ import { AnalyticsDashboard } from "@/components/admin/AnalyticsDashboard";
 import { SettingsManagement } from "@/components/admin/SettingsManagement";
 import { ContentModeration } from "@/components/admin/ContentModeration";
 import { GamificationManagement } from "@/components/admin/GamificationManagement";
+import { NotificationManagement } from "@/components/admin/NotificationManagement";
 import { UserDashboard } from "@/components/dashboards/UserDashboard";
 import { ContentCreatorDashboard } from "@/components/dashboards/ContentCreatorDashboard";
 import { Loader2 } from "lucide-react";
@@ -117,6 +118,8 @@ export default function Admin() {
         return <ContentModeration />;
       case "gamification":
         return <GamificationManagement />;
+      case "notifications":
+        return <NotificationManagement />;
       case "analytics":
         return <AnalyticsDashboard />;
       case "settings":

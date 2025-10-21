@@ -12,6 +12,7 @@ import {
   Settings,
   ShieldCheck,
   Gamepad2,
+  Bell,
 } from "lucide-react";
 import {
   Sidebar,
@@ -51,6 +52,7 @@ const menuItems = [
       { id: "loyalty", label: "Loyalty Points", icon: Trophy },
       { id: "wallets", label: "Wallets", icon: Wallet },
       { id: "gamification", label: "Gamification", icon: Gamepad2 },
+      { id: "notifications", label: "Notifications", icon: Bell },
     ],
   },
   {

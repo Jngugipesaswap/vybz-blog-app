@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, X, Calendar, MapPin, Users, FileText, Bot, Wallet, Trophy, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { NotificationCenter } from "@/components/NotificationCenter";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -143,6 +144,8 @@ const Navigation = () => {
               <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
+            
+            {user && <NotificationCenter />}
             
             {user ? (
               <DropdownMenu>
