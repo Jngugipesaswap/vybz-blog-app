@@ -83,11 +83,6 @@ export function UserManagement() {
       return;
     }
 
-    // Log the activity
-    if (currentUser) {
-      ActivityLogger.userRoleChanged(currentUser.id, userId, oldRole, newRole);
-    }
-
     toast.success("User role updated successfully");
     fetchUserRoles();
   };

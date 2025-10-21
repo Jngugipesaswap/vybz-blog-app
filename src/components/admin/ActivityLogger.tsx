@@ -1,120 +1,152 @@
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Activity, User, FileText, MessageSquare, Heart, Share2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { formatDistanceToNow } from "date-fns";
 
-export interface ActivityLog {
-  user_id: string;
-  action: string;
-  resource_type: string;
-  resource_id?: string;
-  details?: any;
-  ip_address?: string;
+interface ActivityLog {
+  id: string;
+  user_id: string | null;
+  activity_type: string;
+  entity_type: string;
+  entity_id: string | null;
+  metadata: any;
+  created_at: string;
+  profiles?: {
+    full_name: string | null;
+  };
 }
 
-export async function logActivity(log: ActivityLog) {
-  try {
-    // In a production app, you would create an activity_logs table
-    // For now, we'll just log to console in development
-    console.log("[Activity Log]", {
-      ...log,
-      timestamp: new Date().toISOString()
-    });
+export const ActivityLogger = () => {
+  const [activities, setActivities] = useState<ActivityLog[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    // Example: Insert into activity_logs table (to be created)
-    // const { error } = await supabase
-    //   .from("activity_logs")
-    //   .insert({
-    //     ...log,
-    //     created_at: new Date().toISOString()
-    //   });
-    
-    // if (error) throw error;
-  } catch (error) {
-    console.error("Error logging activity:", error);
+  useEffect(() => {
+    fetchActivities();
+  }, []);
+
+  const fetchActivities = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('activity_log')
+        .select(`
+          *,
+          profiles:user_id (full_name)
+        `)
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (error) throw error;
+      setActivities(data || []);
+    } catch (error) {
+      console.error('Error fetching activities:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getActivityIcon = (type: string) => {
+    switch (type) {
+      case 'page_view':
+        return <FileText className="w-4 h-4" />;
+      case 'comment':
+        return <MessageSquare className="w-4 h-4" />;
+      case 'like':
+      case 'reaction':
+        return <Heart className="w-4 h-4" />;
+      case 'share':
+        return <Share2 className="w-4 h-4" />;
+      case 'user_action':
+        return <User className="w-4 h-4" />;
+      default:
+        return <Activity className="w-4 h-4" />;
+    }
+  };
+
+  const getActivityColor = (type: string) => {
+    switch (type) {
+      case 'page_view':
+        return 'bg-blue-500/10 text-blue-500';
+      case 'comment':
+        return 'bg-green-500/10 text-green-500';
+      case 'like':
+      case 'reaction':
+        return 'bg-pink-500/10 text-pink-500';
+      case 'share':
+        return 'bg-purple-500/10 text-purple-500';
+      default:
+        return 'bg-muted text-muted-foreground';
+    }
+  };
+
+  const formatActivityType = (type: string) => {
+    return type.split('_').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+  };
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="py-8 text-center">
+          Loading activity...
+        </CardContent>
+      </Card>
+    );
   }
-}
 
-// Helper functions for common activities
-export const ActivityLogger = {
-  // User management activities
-  userRoleChanged: (adminId: string, userId: string, oldRole: string, newRole: string) => {
-    logActivity({
-      user_id: adminId,
-      action: "role_changed",
-      resource_type: "user",
-      resource_id: userId,
-      details: { oldRole, newRole }
-    });
-  },
-
-  // Content management activities
-  postCreated: (userId: string, postId: string, title: string) => {
-    logActivity({
-      user_id: userId,
-      action: "created",
-      resource_type: "post",
-      resource_id: postId,
-      details: { title }
-    });
-  },
-
-  postUpdated: (userId: string, postId: string, changes: any) => {
-    logActivity({
-      user_id: userId,
-      action: "updated",
-      resource_type: "post",
-      resource_id: postId,
-      details: changes
-    });
-  },
-
-  postDeleted: (userId: string, postId: string) => {
-    logActivity({
-      user_id: userId,
-      action: "deleted",
-      resource_type: "post",
-      resource_id: postId
-    });
-  },
-
-  // Loyalty management activities
-  loyaltyPointsAdjusted: (adminId: string, userId: string, points: number, reason: string) => {
-    logActivity({
-      user_id: adminId,
-      action: "points_adjusted",
-      resource_type: "loyalty",
-      resource_id: userId,
-      details: { points, reason }
-    });
-  },
-
-  // Wallet management activities
-  walletTransactionProcessed: (adminId: string, walletId: string, amount: number, type: string) => {
-    logActivity({
-      user_id: adminId,
-      action: "transaction_processed",
-      resource_type: "wallet",
-      resource_id: walletId,
-      details: { amount, type }
-    });
-  },
-
-  // Comment management activities
-  commentModerated: (adminId: string, commentId: string, action: string) => {
-    logActivity({
-      user_id: adminId,
-      action: "moderated",
-      resource_type: "comment",
-      resource_id: commentId,
-      details: { moderationAction: action }
-    });
-  },
-
-  // Settings changes
-  settingsUpdated: (adminId: string, settingKey: string, oldValue: any, newValue: any) => {
-    logActivity({
-      user_id: adminId,
-      action: "settings_updated",
-      resource_type: "settings",
-      details: { settingKey, oldValue, newValue }
-    });
-  }
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Activity className="w-5 h-5" />
+          Recent Activity
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ScrollArea className="h-[600px] pr-4">
+          <div className="space-y-3">
+            {activities.length === 0 ? (
+              <p className="text-center text-muted-foreground py-8">
+                No activity recorded yet
+              </p>
+            ) : (
+              activities.map((activity) => (
+                <div
+                  key={activity.id}
+                  className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-muted/50 transition-colors"
+                >
+                  <div className={`p-2 rounded-full ${getActivityColor(activity.activity_type)}`}>
+                    {getActivityIcon(activity.activity_type)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge variant="outline">
+                        {formatActivityType(activity.activity_type)}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">
+                        {formatDistanceToNow(new Date(activity.created_at), { addSuffix: true })}
+                      </span>
+                    </div>
+                    <p className="text-sm">
+                      {activity.profiles?.full_name || 'Anonymous User'} 
+                      {' '}{activity.activity_type.replace('_', ' ')}{' '}
+                      {activity.entity_type}
+                    </p>
+                    {activity.metadata && Object.keys(activity.metadata).length > 0 && (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {JSON.stringify(activity.metadata, null, 2)}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </ScrollArea>
+      </CardContent>
+    </Card>
+  );
 };

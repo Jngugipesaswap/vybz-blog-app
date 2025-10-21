@@ -21,9 +21,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ActivityLogger } from "@/components/admin/ActivityLogger";
 import { CreatePostDialog } from "./CreatePostDialog";
 import { EditPostDialog } from "./EditPostDialog";
+import { ContentAnalytics } from "./ContentAnalytics";
 
 interface ContentStats {
   totalPosts: number;
@@ -183,11 +183,6 @@ export function ContentCreatorDashboard() {
 
       if (error) throw error;
 
-      // Log activity
-      if (user) {
-        ActivityLogger.postDeleted(user.id, postId);
-      }
-
       toast.success("Post deleted successfully");
       fetchContentData();
     } catch (error) {
@@ -332,8 +327,8 @@ export function ContentCreatorDashboard() {
       <Tabs defaultValue="posts" className="space-y-4">
         <TabsList>
           <TabsTrigger value="posts">My Posts</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
+          <TabsTrigger value="analytics">Performance</TabsTrigger>
+          <TabsTrigger value="insights">Insights</TabsTrigger>
         </TabsList>
 
         {/* Posts Tab */}
@@ -424,7 +419,12 @@ export function ContentCreatorDashboard() {
           </Card>
         </TabsContent>
 
-        {/* Performance Tab */}
+        {/* Insights Tab */}
+        <TabsContent value="insights" className="space-y-4">
+          <ContentAnalytics />
+        </TabsContent>
+
+        {/* Old Performance Tab for backwards compatibility */}
         <TabsContent value="performance" className="space-y-4">
           <Card>
             <CardHeader>
