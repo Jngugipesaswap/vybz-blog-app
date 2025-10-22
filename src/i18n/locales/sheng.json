@@ -1,0 +1,107 @@
+{
+  "common": {
+    "home": "Base",
+    "events": "Mashindano",
+    "content": "Content",
+    "dashboard": "Dash",
+    "admin": "Boss",
+    "login": "Ingia Kwa Hao",
+    "signup": "Jipange",
+    "logout": "Dunda",
+    "search": "Search",
+    "filters": "Filter",
+    "submit": "Send",
+    "cancel": "Wacha",
+    "save": "Save",
+    "delete": "Futa Kabisa",
+    "edit": "Edit",
+    "view": "Check",
+    "share": "Share",
+    "loading": "Inapakia...",
+    "error": "Kuna Shida",
+    "success": "Iko Poa"
+  },
+  "hero": {
+    "title": "Discover Vybz za Nai",
+    "subtitle": "Best guide kwa concerts, festivals, na ma-experience za jiji",
+    "cta": "Cheki Events",
+    "cta2": "Angalia Venues"
+  },
+  "events": {
+    "trending": "Zinabamba Sana",
+    "upcoming": "Zinakam",
+    "categories": "Categories",
+    "date": "Siku",
+    "venue": "Place",
+    "price": "Bei",
+    "viewDetails": "Cheki Details",
+    "getTickets": "Pata Tiketi",
+    "noEvents": "Hamna events bro"
+  },
+  "venues": {
+    "title": "Best Venues",
+    "capacity": "Space",
+    "location": "Iko Wapi",
+    "explore": "Explore Place"
+  },
+  "reviews": {
+    "title": "Watu Wanasema Nini",
+    "writeReview": "Andika Review",
+    "rating": "Rating",
+    "helpful": "Inasaidia"
+  },
+  "blog": {
+    "title": "Latest Gist",
+    "readMore": "Soma Zaidi",
+    "author": "Na",
+    "published": "Imeshare"
+  },
+  "footer": {
+    "about": "Kuhusu Sisi",
+    "contact": "Tupigie",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "copyright": "© 2025 NairobiVybz. Haki zote ni zetu."
+  },
+  "auth": {
+    "welcomeBack": "Umefika Tena",
+    "createAccount": "Jipange Account",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Jina Yako",
+    "forgotPassword": "Umesahau Password?",
+    "noAccount": "Huna account?",
+    "hasAccount": "Una account tayari?",
+    "signInGoogle": "Ingia na Google"
+  },
+  "dashboard": {
+    "welcome": "Karibu sana",
+    "myContent": "Content Yangu",
+    "analytics": "Stats",
+    "settings": "Settings",
+    "createPost": "Post Kitu",
+    "uploadContent": "Upload Content",
+    "points": "Pointi",
+    "tier": "Level",
+    "achievements": "Ma-Wins",
+    "challenges": "Ma-Challenge",
+    "leaderboard": "Leaderboard"
+  },
+  "loyalty": {
+    "title": "Loyalty Game",
+    "earnPoints": "Pata Points",
+    "redeemRewards": "Chukua Rewards",
+    "yourTier": "Level Yako",
+    "pointsBalance": "Ziko Ngapi"
+  },
+  "wallet": {
+    "title": "Vybz Wallet",
+    "balance": "Iko Ngapi",
+    "topUp": "Add Doo",
+    "transfer": "Send",
+    "withdraw": "Toa Doo",
+    "transactions": "History",
+    "tickets": "Ma-Tiketi Zangu",
+    "orders": "Orders"
+  }
+}

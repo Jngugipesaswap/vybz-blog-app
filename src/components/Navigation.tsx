@@ -21,6 +21,8 @@ import {
 import { Menu, X, Calendar, MapPin, Users, FileText, Bot, Wallet, Trophy, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { NotificationCenter } from "@/components/NotificationCenter";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,6 +30,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
+  const { t } = useTranslation();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -133,7 +136,9 @@ const Navigation = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Button variant="ghost" onClick={() => scrollToSection('blog')}>Blog</Button>
+            <Button variant="ghost" onClick={() => scrollToSection('blog')}>{t('common.blog', 'Blog')}</Button>
+            
+            <LanguageSwitcher />
             
             <Button
               variant="ghost"
@@ -169,22 +174,22 @@ const Navigation = () => {
                       navigate('/dashboard');
                     }
                   }}>
-                    My Dashboard
+                    {t('dashboard.welcome', 'My Dashboard')}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => scrollToSection('wallet')}>
-                    My Wallet
+                    {t('wallet.title', 'My Wallet')}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => scrollToSection('loyalty')}>
-                    Loyalty Points
+                    {t('loyalty.title', 'Loyalty Points')}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleSignOut}>
-                    Sign Out
+                    {t('common.logout', 'Sign Out')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <Button className="btn-gradient text-white" asChild>
-                <Link to="/auth">Sign In</Link>
+                <Link to="/auth">{t('common.login', 'Sign In')}</Link>
               </Button>
             )}
           </div>
@@ -216,15 +221,15 @@ const Navigation = () => {
                     }
                     setIsMenuOpen(false);
                   }}>
-                    My Dashboard
+                    {t('dashboard.welcome', 'My Dashboard')}
                   </Button>
                   <Button variant="ghost" className="justify-start" onClick={handleSignOut}>
-                    Sign Out
+                    {t('common.logout', 'Sign Out')}
                   </Button>
                 </>
               ) : (
                 <Button className="btn-gradient text-white" asChild>
-                  <Link to="/auth">Sign In</Link>
+                  <Link to="/auth">{t('common.login', 'Sign In')}</Link>
                 </Button>
               )}
             </div>

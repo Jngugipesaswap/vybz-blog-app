@@ -1,0 +1,107 @@
+{
+  "common": {
+    "home": "Home",
+    "events": "Events",
+    "content": "Content",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "search": "Search",
+    "filters": "Filters",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "share": "Share",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "hero": {
+    "title": "Discover Nairobi's Vibrant Events",
+    "subtitle": "Your ultimate guide to concerts, festivals, and cultural experiences in the city",
+    "cta": "Explore Events",
+    "cta2": "View Venues"
+  },
+  "events": {
+    "trending": "Trending Events",
+    "upcoming": "Upcoming Events",
+    "categories": "Categories",
+    "date": "Date",
+    "venue": "Venue",
+    "price": "Price",
+    "viewDetails": "View Details",
+    "getTickets": "Get Tickets",
+    "noEvents": "No events found"
+  },
+  "venues": {
+    "title": "Featured Venues",
+    "capacity": "Capacity",
+    "location": "Location",
+    "explore": "Explore Venue"
+  },
+  "reviews": {
+    "title": "What People Say",
+    "writeReview": "Write a Review",
+    "rating": "Rating",
+    "helpful": "Helpful"
+  },
+  "blog": {
+    "title": "Latest from the Blog",
+    "readMore": "Read More",
+    "author": "By",
+    "published": "Published"
+  },
+  "footer": {
+    "about": "About Us",
+    "contact": "Contact",
+    "terms": "Terms",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2025 NairobiVybz. All rights reserved."
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInGoogle": "Sign in with Google"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "myContent": "My Content",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "createPost": "Create Post",
+    "uploadContent": "Upload Content",
+    "points": "Points",
+    "tier": "Tier",
+    "achievements": "Achievements",
+    "challenges": "Challenges",
+    "leaderboard": "Leaderboard"
+  },
+  "loyalty": {
+    "title": "Loyalty Program",
+    "earnPoints": "Earn Points",
+    "redeemRewards": "Redeem Rewards",
+    "yourTier": "Your Tier",
+    "pointsBalance": "Points Balance"
+  },
+  "wallet": {
+    "title": "Vybz Wallet",
+    "balance": "Balance",
+    "topUp": "Top Up",
+    "transfer": "Transfer",
+    "withdraw": "Withdraw",
+    "transactions": "Transactions",
+    "tickets": "My Tickets",
+    "orders": "Orders"
+  }
+}

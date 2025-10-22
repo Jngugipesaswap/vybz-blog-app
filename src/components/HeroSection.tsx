@@ -7,8 +7,10 @@ import heroImage from "@/assets/hero-nairobi-events.jpg";
 import futuristicBg from "@/assets/hero-futuristic-bg.jpg";
 import VideoUpload from "./VideoUpload";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
   const [backgroundVideo, setBackgroundVideo] = useState<string>(() => {
     return localStorage.getItem('heroBackgroundVideo') || "";
   });
@@ -115,11 +117,11 @@ const HeroSection = () => {
           </div>
           
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-foreground mb-4 leading-tight tracking-tight uppercase">
-            The Vybz Circle
+            {t('hero.title', 'The Vybz Circle')}
           </h2>
           
           <p className="text-lg md:text-xl text-primary font-bold mb-3 tracking-widest uppercase">
-            Kenya's Ultimate Entertainment Hub
+            {t('hero.subtitle', "Kenya's Ultimate Entertainment Hub")}
           </p>
           
           <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto font-light mb-8 tracking-wide">
@@ -131,14 +133,14 @@ const HeroSection = () => {
               <div className="flex items-center gap-4">
                 <Search className="w-6 h-6 text-primary ml-2 flex-shrink-0" />
                 <Input
-                  placeholder="Search events, venues, experiences..."
+                  placeholder={t('common.search', 'Search events, venues, experiences...')}
                   className="bg-transparent border-none text-foreground placeholder:text-muted-foreground text-lg py-6 px-2 focus-visible:ring-0 flex-1 font-medium"
                 />
                 <Button
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-6 font-black text-base uppercase tracking-wide transition-all shadow-lg"
                   onClick={() => document.getElementById('trending-events')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Search
+                  {t('common.search', 'Search')}
                 </Button>
               </div>
             </div>

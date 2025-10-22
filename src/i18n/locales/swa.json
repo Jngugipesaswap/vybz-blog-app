@@ -1,0 +1,107 @@
+{
+  "common": {
+    "home": "Nyumbani",
+    "events": "Matukio",
+    "content": "Maudhui",
+    "dashboard": "Dashibodi",
+    "admin": "Msimamizi",
+    "login": "Ingia",
+    "signup": "Jisajili",
+    "logout": "Toka",
+    "search": "Tafuta",
+    "filters": "Chuja",
+    "submit": "Wasilisha",
+    "cancel": "Ghairi",
+    "save": "Hifadhi",
+    "delete": "Futa",
+    "edit": "Hariri",
+    "view": "Angalia",
+    "share": "Shiriki",
+    "loading": "Inapakia...",
+    "error": "Hitilafu",
+    "success": "Mafanikio"
+  },
+  "hero": {
+    "title": "Gundua Matukio ya Nairobi",
+    "subtitle": "Mwongozo wako wa matukio ya muziki, tamasha, na uzoefu wa kitamaduni mjini",
+    "cta": "Chunguza Matukio",
+    "cta2": "Angalia Maeneo"
+  },
+  "events": {
+    "trending": "Matukio Yanayovuma",
+    "upcoming": "Matukio Yajayo",
+    "categories": "Aina",
+    "date": "Tarehe",
+    "venue": "Mahali",
+    "price": "Bei",
+    "viewDetails": "Angalia Maelezo",
+    "getTickets": "Pata Tiketi",
+    "noEvents": "Hakuna matukio"
+  },
+  "venues": {
+    "title": "Maeneo Maarufu",
+    "capacity": "Uwezo",
+    "location": "Eneo",
+    "explore": "Chunguza Eneo"
+  },
+  "reviews": {
+    "title": "Maoni ya Watu",
+    "writeReview": "Andika Tathmini",
+    "rating": "Ukadiriaji",
+    "helpful": "Inasaidia"
+  },
+  "blog": {
+    "title": "Habari za Hivi Karibuni",
+    "readMore": "Soma Zaidi",
+    "author": "Na",
+    "published": "Imechapishwa"
+  },
+  "footer": {
+    "about": "Kuhusu Sisi",
+    "contact": "Wasiliana",
+    "terms": "Masharti",
+    "privacy": "Sera ya Faragha",
+    "copyright": "© 2025 NairobiVybz. Haki zote zimehifadhiwa."
+  },
+  "auth": {
+    "welcomeBack": "Karibu Tena",
+    "createAccount": "Fungua Akaunti",
+    "email": "Barua Pepe",
+    "password": "Nywila",
+    "fullName": "Jina Kamili",
+    "forgotPassword": "Umesahau Nywila?",
+    "noAccount": "Huna akaunti?",
+    "hasAccount": "Una akaunti tayari?",
+    "signInGoogle": "Ingia na Google"
+  },
+  "dashboard": {
+    "welcome": "Karibu tena",
+    "myContent": "Maudhui Yangu",
+    "analytics": "Takwimu",
+    "settings": "Mipangilio",
+    "createPost": "Unda Chapisho",
+    "uploadContent": "Pakia Maudhui",
+    "points": "Pointi",
+    "tier": "Kiwango",
+    "achievements": "Mafanikio",
+    "challenges": "Changamoto",
+    "leaderboard": "Jedwali la Ushindi"
+  },
+  "loyalty": {
+    "title": "Programu ya Uaminifu",
+    "earnPoints": "Pata Pointi",
+    "redeemRewards": "Pokea Zawadi",
+    "yourTier": "Kiwango Chako",
+    "pointsBalance": "Salio la Pointi"
+  },
+  "wallet": {
+    "title": "Mkoba wa Vybz",
+    "balance": "Salio",
+    "topUp": "Ongeza Pesa",
+    "transfer": "Hamisha",
+    "withdraw": "Toa",
+    "transactions": "Miamala",
+    "tickets": "Tiketi Zangu",
+    "orders": "Maagizo"
+  }
+}
