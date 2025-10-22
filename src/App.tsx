@@ -11,6 +11,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Content from "./pages/Content";
 import Admin from "./pages/Admin";
+import QuoteStudio from "./pages/QuoteStudio";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,12 +25,13 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/content" element={<Content />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/content" element={<Content />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/quote-studio" element={<QuoteStudio />} />
+            <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>

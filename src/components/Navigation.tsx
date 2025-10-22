@@ -182,6 +182,9 @@ const Navigation = () => {
                   <DropdownMenuItem onClick={() => scrollToSection('loyalty')}>
                     {t('loyalty.title', 'Loyalty Points')}
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/quote-studio')}>
+                    Quote Studio
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleSignOut}>
                     {t('common.logout', 'Sign Out')}
                   </DropdownMenuItem>
@@ -222,6 +225,12 @@ const Navigation = () => {
                     setIsMenuOpen(false);
                   }}>
                     {t('dashboard.welcome', 'My Dashboard')}
+                  </Button>
+                  <Button variant="ghost" className="justify-start" onClick={() => {
+                    navigate('/quote-studio');
+                    setIsMenuOpen(false);
+                  }}>
+                    Quote Studio
                   </Button>
                   <Button variant="ghost" className="justify-start" onClick={handleSignOut}>
                     {t('common.logout', 'Sign Out')}
