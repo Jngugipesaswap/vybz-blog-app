@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Download, Sparkles, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import html2canvas from "html2canvas";
 import {
   Select,
   SelectContent,
@@ -15,14 +14,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+type BgStyleType = "gradient1" | "gradient2" | "gradient3" | "gradient4" | "solid";
+
 export const QuoteCardStudio = () => {
   const { toast } = useToast();
   const quoteCardRef = useRef<HTMLDivElement>(null);
-  const [sourceText, setSourceText] = useState("");
-  const [selectedQuote, setSelectedQuote] = useState("");
-  const [author, setAuthor] = useState("");
+  const [sourceText, setSourceText] = useState<string>("");
+  const [selectedQuote, setSelectedQuote] = useState<string>("");
+  const [author, setAuthor] = useState<string>("");
   const [extractedQuotes, setExtractedQuotes] = useState<string[]>([]);
-  const [bgStyle, setBgStyle] = useState("gradient1");
+  const [bgStyle, setBgStyle] = useState<BgStyleType>("gradient1");
 
   const extractQuotableLines = () => {
     if (!sourceText.trim()) {
@@ -69,7 +70,7 @@ export const QuoteCardStudio = () => {
     }
   };
 
-  const exportAsImage = async () => {
+  const exportAsImage = async (): Promise<void> => {
     if (!quoteCardRef.current || !selectedQuote) {
       toast({
         title: "Nothing to export",
@@ -80,12 +81,57 @@ export const QuoteCardStudio = () => {
     }
 
     try {
-      const canvas = await html2canvas(quoteCardRef.current, {
-        backgroundColor: null,
-        scale: 2,
-      });
+      // Create a canvas element for export
+      const element = quoteCardRef.current;
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      if (!ctx) {
+        throw new Error('Could not get canvas context');
+      }
 
-      canvas.toBlob((blob) => {
+      // Set canvas size
+      canvas.width = element.offsetWidth * 2;
+      canvas.height = element.offsetHeight * 2;
+      
+      // Scale for better quality
+      ctx.scale(2, 2);
+      
+      // Get computed styles
+      const computedStyle = window.getComputedStyle(element);
+      
+      // Draw background
+      ctx.fillStyle = computedStyle.backgroundColor || '#000';
+      ctx.fillRect(0, 0, element.offsetWidth, element.offsetHeight);
+      
+      // Draw text (simplified version)
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '24px sans-serif';
+      ctx.textAlign = 'center';
+      
+      const maxWidth = element.offsetWidth - 80;
+      const words = selectedQuote.split(' ');
+      let line = '';
+      let y = element.offsetHeight / 2 - 40;
+      
+      for (const word of words) {
+        const testLine = line + word + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && line !== '') {
+          ctx.fillText(line, element.offsetWidth / 2, y);
+          line = word + ' ';
+          y += 35;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, element.offsetWidth / 2, y);
+      
+      if (author) {
+        ctx.fillText(`— ${author}`, element.offsetWidth / 2, y + 50);
+      }
+
+      canvas.toBlob((blob: Blob | null) => {
         if (blob) {
           const url = URL.createObjectURL(blob);
           const link = document.createElement("a");
@@ -100,6 +146,7 @@ export const QuoteCardStudio = () => {
         }
       });
     } catch (error) {
+      console.error('Export error:', error);
       toast({
         title: "Export failed",
         description: "Could not generate image",
@@ -108,7 +155,7 @@ export const QuoteCardStudio = () => {
     }
   };
 
-  const bgStyles = {
+  const bgStyles: Record<BgStyleType, string> = {
     gradient1: "bg-gradient-to-br from-primary via-primary/80 to-accent",
     gradient2: "bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500",
     gradient3: "bg-gradient-to-br from-blue-600 via-cyan-500 to-teal-500",
@@ -174,7 +221,7 @@ export const QuoteCardStudio = () => {
 
             <div>
               <Label htmlFor="bg-style">Background Style</Label>
-              <Select value={bgStyle} onValueChange={setBgStyle}>
+              <Select value={bgStyle} onValueChange={(value) => setBgStyle(value as BgStyleType)}>
                 <SelectTrigger className="mt-2">
                   <SelectValue />
                 </SelectTrigger>
@@ -197,7 +244,7 @@ export const QuoteCardStudio = () => {
           <CardContent className="space-y-4">
             <div
               ref={quoteCardRef}
-              className={`${bgStyles[bgStyle as keyof typeof bgStyles]} rounded-lg p-8 min-h-[400px] flex flex-col justify-center items-center text-white shadow-xl`}
+              className={`${bgStyles[bgStyle]} rounded-lg p-8 min-h-[400px] flex flex-col justify-center items-center text-white shadow-xl`}
             >
               {selectedQuote ? (
                 <>

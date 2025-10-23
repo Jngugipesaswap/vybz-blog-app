@@ -1,6 +1,6 @@
-import { Navigation } from "@/components/Navigation";
+import Navigation from "@/components/Navigation";
 import { QuoteCardStudio } from "@/components/QuoteCardStudio";
-import { Footer } from "@/components/Footer";
+import Footer from "@/components/Footer";
 
 const QuoteStudio = () => {
   return (
