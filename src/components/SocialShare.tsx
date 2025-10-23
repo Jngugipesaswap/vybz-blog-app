@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useShareTracking } from "@/hooks/useShareTracking";
 import { useAuth } from "@/hooks/useAuth";
+import { buildUTMUrl, getPlatformSource } from "@/lib/utm";
 
 interface SocialShareProps {
   title: string;
@@ -41,6 +42,8 @@ const SocialShare = ({ title, description = "", url, imageUrl, contentType, cont
       return trackedUrls[platform];
     }
 
+    let trackedUrl = baseUrl;
+
     // If user is logged in and content info is provided, create tracking link
     if (user && contentType && contentId) {
       const trackingCode = await createShareLink({
@@ -51,13 +54,20 @@ const SocialShare = ({ title, description = "", url, imageUrl, contentType, cont
       });
 
       if (trackingCode) {
-        const trackedUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}ref=${trackingCode}`;
-        setTrackedUrls(prev => ({ ...prev, [platform]: trackedUrl }));
-        return trackedUrl;
+        trackedUrl = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}ref=${trackingCode}`;
       }
     }
 
-    return baseUrl;
+    // Add UTM parameters
+    const utmUrl = buildUTMUrl(trackedUrl, {
+      source: getPlatformSource(platform),
+      medium: 'social',
+      campaign: 'organic_share',
+      content: contentId || undefined
+    });
+
+    setTrackedUrls(prev => ({ ...prev, [platform]: utmUrl }));
+    return utmUrl;
   };
 
   const handleShare = async (platform: string, platformUrl: string) => {

@@ -185,6 +185,9 @@ const Navigation = () => {
                   <DropdownMenuItem onClick={() => navigate('/quote-studio')}>
                     Quote Studio
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/share-analytics')}>
+                    Share Analytics
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleSignOut}>
                     {t('common.logout', 'Sign Out')}
                   </DropdownMenuItem>
@@ -231,6 +234,12 @@ const Navigation = () => {
                     setIsMenuOpen(false);
                   }}>
                     Quote Studio
+                  </Button>
+                  <Button variant="ghost" className="justify-start" onClick={() => {
+                    navigate('/share-analytics');
+                    setIsMenuOpen(false);
+                  }}>
+                    Share Analytics
                   </Button>
                   <Button variant="ghost" className="justify-start" onClick={handleSignOut}>
                     {t('common.logout', 'Sign Out')}

@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Content from "./pages/Content";
 import Admin from "./pages/Admin";
 import QuoteStudio from "./pages/QuoteStudio";
+import ShareAnalytics from "./pages/ShareAnalytics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/content" element={<Content />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/quote-studio" element={<QuoteStudio />} />
+            <Route path="/share-analytics" element={<ShareAnalytics />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
