@@ -13,6 +13,7 @@ import Content from "./pages/Content";
 import Admin from "./pages/Admin";
 import QuoteStudio from "./pages/QuoteStudio";
 import ShareAnalytics from "./pages/ShareAnalytics";
+import Community from "./pages/Community";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/quote-studio" element={<QuoteStudio />} />
             <Route path="/share-analytics" element={<ShareAnalytics />} />
+            <Route path="/community" element={<Community />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
