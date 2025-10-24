@@ -14,6 +14,7 @@ import Admin from "./pages/Admin";
 import QuoteStudio from "./pages/QuoteStudio";
 import ShareAnalytics from "./pages/ShareAnalytics";
 import Community from "./pages/Community";
+import CircleDetail from "./pages/CircleDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/quote-studio" element={<QuoteStudio />} />
             <Route path="/share-analytics" element={<ShareAnalytics />} />
             <Route path="/community" element={<Community />} />
+            <Route path="/community/circle/:circleId" element={<CircleDetail />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
