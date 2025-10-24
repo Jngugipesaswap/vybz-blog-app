@@ -23,7 +23,7 @@ const Community = () => {
   const fetchCircles = async () => {
     try {
       const { data, error } = await supabase
-        .from("circles")
+        .from("circles" as any)
         .select("*, circle_members(count)")
         .eq("status", "active")
         .order("created_at", { ascending: false });
@@ -45,7 +45,7 @@ const Community = () => {
 
     try {
       const { error } = await supabase
-        .from("circle_members")
+        .from("circle_members" as any)
         .insert({ circle_id: circleId, user_id: user.id });
 
       if (error) throw error;
