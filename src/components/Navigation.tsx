@@ -137,6 +137,9 @@ const Navigation = () => {
             </NavigationMenu>
 
             <Button variant="ghost" onClick={() => scrollToSection('blog')}>{t('common.blog', 'Blog')}</Button>
+            <Button variant="ghost" asChild>
+              <Link to="/community">Community</Link>
+            </Button>
             
             <LanguageSwitcher />
             
@@ -214,6 +217,9 @@ const Navigation = () => {
               <Button variant="ghost" className="justify-start">Events</Button>
               <Button variant="ghost" className="justify-start">Features</Button>
               <Button variant="ghost" className="justify-start">Blog</Button>
+              <Button variant="ghost" className="justify-start" asChild>
+                <Link to="/community">Community</Link>
+              </Button>
               {user ? (
                 <>
                   <Button variant="ghost" className="justify-start" onClick={async () => {
