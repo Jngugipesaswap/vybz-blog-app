@@ -65,7 +65,6 @@ const Navigation = () => {
 
   const features = [
     { name: "Venues", icon: MapPin, id: "venues" },
-    { name: "AI Planner", icon: Bot, id: "ai-planner" },
     { name: "Wallet", icon: Wallet, id: "wallet" },
     { name: "Loyalty", icon: Trophy, id: "loyalty" },
   ];

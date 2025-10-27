@@ -94,7 +94,7 @@ const Community = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0E0E0E]">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
       <main className="flex-1 pt-20 pb-12">
         {/* Search & Filter Bar */}
@@ -166,7 +166,7 @@ const Community = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-primary via-purple-500 to-pink-500" />
+                        <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/30 to-accent/20" />
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                       {circle.is_live && (
@@ -176,8 +176,8 @@ const Community = () => {
                       )}
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-xl font-bold text-white mb-2">{circle.name}</h3>
-                      <p className="text-sm text-white/80 mb-3 line-clamp-2">{circle.description}</p>
+                      <h3 className="text-xl font-bold text-primary-foreground mb-2">{circle.name}</h3>
+                      <p className="text-sm text-primary-foreground/80 mb-3 line-clamp-2">{circle.description}</p>
                       <Button
                         size="sm"
                         className="w-full btn-gradient"
@@ -212,7 +212,7 @@ const Community = () => {
               ) : circles.length === 0 ? (
                 <div className="text-center py-12">
                   <Music className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-                  <h3 className="text-xl font-bold mb-2">No circles found</h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">No circles found</h3>
                   <p className="text-muted-foreground mb-4">
                     {searchQuery ? "Try a different search" : "Be the first to create one!"}
                   </p>

@@ -23,21 +23,21 @@ export const CircleCard = ({ circle, onJoin, onClick }: CircleCardProps) => {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-primary/20 via-purple-500/20 to-pink-500/20" />
+          <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/30 to-accent/20" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         
         {circle.is_live && (
-          <Badge className="absolute top-3 right-3 bg-red-500 border-0 animate-pulse shadow-glow">
+          <Badge className="absolute top-3 right-3 bg-destructive border-0 animate-pulse shadow-glow">
             <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse" />
               LIVE
             </span>
           </Badge>
         )}
 
         {circle.member_count > 100 && (
-          <Badge className="absolute top-3 left-3 bg-orange-500/90 border-0">
+          <Badge className="absolute top-3 left-3 bg-accent/90 border-0">
             <Flame className="w-3 h-3 mr-1" />
             Trending
           </Badge>
