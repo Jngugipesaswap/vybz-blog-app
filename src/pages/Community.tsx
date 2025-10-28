@@ -87,7 +87,8 @@ const Community = () => {
 
       if (error) throw error;
       toast.success("Joined circle!");
-      navigate(`/community/circle/${circleId}`);
+      // Refresh circles to update member count
+      fetchCircles();
     } catch (error: any) {
       toast.error("Failed to join circle");
     }
