@@ -21,6 +21,13 @@ import { GamificationManagement } from "@/components/admin/GamificationManagemen
 import { NotificationManagement } from "@/components/admin/NotificationManagement";
 import { UserDashboard } from "@/components/dashboards/UserDashboard";
 import { ContentCreatorDashboard } from "@/components/dashboards/ContentCreatorDashboard";
+import { CircleOverview } from "@/components/admin/circles/CircleOverview";
+import { CircleContentModeration } from "@/components/admin/circles/CircleContentModeration";
+import { CircleMemberManagement } from "@/components/admin/circles/CircleMemberManagement";
+import { CircleAnalytics } from "@/components/admin/circles/CircleAnalytics";
+import { CircleLiveEvents } from "@/components/admin/circles/CircleLiveEvents";
+import { CircleAutomation } from "@/components/admin/circles/CircleAutomation";
+import { CircleSecurity } from "@/components/admin/circles/CircleSecurity";
 import { Loader2 } from "lucide-react";
 
 export default function Admin() {
@@ -124,6 +131,20 @@ export default function Admin() {
         return <AnalyticsDashboard />;
       case "settings":
         return <SettingsManagement />;
+      case "circles":
+        return <CircleOverview />;
+      case "circle-moderation":
+        return <CircleContentModeration />;
+      case "circle-members":
+        return <CircleMemberManagement />;
+      case "circle-analytics":
+        return <CircleAnalytics />;
+      case "circle-live":
+        return <CircleLiveEvents />;
+      case "circle-automation":
+        return <CircleAutomation />;
+      case "circle-security":
+        return <CircleSecurity />;
       default:
         return <DashboardOverview />;
     }

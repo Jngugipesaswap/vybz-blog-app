@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Gamepad2,
   Bell,
+  CircleDot,
 } from "lucide-react";
 import {
   Sidebar,
@@ -43,6 +44,18 @@ const menuItems = [
       { id: "media", label: "Media Library", icon: Image },
       { id: "comments", label: "Comments", icon: MessageSquare },
       { id: "moderation", label: "Content Moderation", icon: ShieldCheck },
+    ],
+  },
+  {
+    section: "Circle Management",
+    items: [
+      { id: "circles", label: "Circle Overview", icon: CircleDot },
+      { id: "circle-moderation", label: "Moderation Queue", icon: ShieldCheck },
+      { id: "circle-members", label: "Member Management", icon: Users },
+      { id: "circle-analytics", label: "Analytics", icon: BarChart3 },
+      { id: "circle-live", label: "Live Events", icon: Bell },
+      { id: "circle-automation", label: "Automation", icon: Settings },
+      { id: "circle-security", label: "Security & Privacy", icon: ShieldCheck },
     ],
   },
   {

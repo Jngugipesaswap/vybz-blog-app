@@ -177,6 +177,106 @@ export type Database = {
         }
         Relationships: []
       }
+      circle_analytics: {
+        Row: {
+          active_users_24h: number | null
+          active_users_30d: number | null
+          active_users_7d: number | null
+          circle_id: string
+          created_at: string | null
+          date: string
+          engagement_rate: number | null
+          id: string
+          media_uploads: number | null
+          new_members: number | null
+          total_comments: number | null
+          total_posts: number | null
+          total_reactions: number | null
+        }
+        Insert: {
+          active_users_24h?: number | null
+          active_users_30d?: number | null
+          active_users_7d?: number | null
+          circle_id: string
+          created_at?: string | null
+          date?: string
+          engagement_rate?: number | null
+          id?: string
+          media_uploads?: number | null
+          new_members?: number | null
+          total_comments?: number | null
+          total_posts?: number | null
+          total_reactions?: number | null
+        }
+        Update: {
+          active_users_24h?: number | null
+          active_users_30d?: number | null
+          active_users_7d?: number | null
+          circle_id?: string
+          created_at?: string | null
+          date?: string
+          engagement_rate?: number | null
+          id?: string
+          media_uploads?: number | null
+          new_members?: number | null
+          total_comments?: number | null
+          total_posts?: number | null
+          total_reactions?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "circle_analytics_circle_id_fkey"
+            columns: ["circle_id"]
+            isOneToOne: false
+            referencedRelation: "circles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      circle_automation: {
+        Row: {
+          action_type: string
+          circle_id: string | null
+          conditions: Json | null
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          message_template: string | null
+          trigger_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          action_type: string
+          circle_id?: string | null
+          conditions?: Json | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message_template?: string | null
+          trigger_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          action_type?: string
+          circle_id?: string | null
+          conditions?: Json | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message_template?: string | null
+          trigger_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "circle_automation_circle_id_fkey"
+            columns: ["circle_id"]
+            isOneToOne: false
+            referencedRelation: "circles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       circle_members: {
         Row: {
           circle_id: string
@@ -216,11 +316,61 @@ export type Database = {
           },
         ]
       }
+      circle_moderators: {
+        Row: {
+          assigned_at: string | null
+          assigned_by: string | null
+          circle_id: string
+          id: string
+          permissions: Json | null
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          circle_id: string
+          id?: string
+          permissions?: Json | null
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          circle_id?: string
+          id?: string
+          permissions?: Json | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "circle_moderators_assigned_by_fkey"
+            columns: ["assigned_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "circle_moderators_circle_id_fkey"
+            columns: ["circle_id"]
+            isOneToOne: false
+            referencedRelation: "circles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "circle_moderators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       circle_post_comments: {
         Row: {
           content: string
           created_at: string | null
           id: string
+          moderation_status: string | null
           post_id: string
           updated_at: string | null
           user_id: string
@@ -229,6 +379,7 @@ export type Database = {
           content: string
           created_at?: string | null
           id?: string
+          moderation_status?: string | null
           post_id: string
           updated_at?: string | null
           user_id: string
@@ -237,6 +388,7 @@ export type Database = {
           content?: string
           created_at?: string | null
           id?: string
+          moderation_status?: string | null
           post_id?: string
           updated_at?: string | null
           user_id?: string
@@ -303,11 +455,13 @@ export type Database = {
           comment_count: number | null
           content: string | null
           created_at: string | null
+          flagged_count: number | null
           id: string
           is_live_post: boolean | null
           is_pinned: boolean | null
           media_type: string | null
           media_urls: string[] | null
+          moderation_status: string | null
           reaction_count: number | null
           updated_at: string | null
           user_id: string
@@ -317,11 +471,13 @@ export type Database = {
           comment_count?: number | null
           content?: string | null
           created_at?: string | null
+          flagged_count?: number | null
           id?: string
           is_live_post?: boolean | null
           is_pinned?: boolean | null
           media_type?: string | null
           media_urls?: string[] | null
+          moderation_status?: string | null
           reaction_count?: number | null
           updated_at?: string | null
           user_id: string
@@ -331,11 +487,13 @@ export type Database = {
           comment_count?: number | null
           content?: string | null
           created_at?: string | null
+          flagged_count?: number | null
           id?: string
           is_live_post?: boolean | null
           is_pinned?: boolean | null
           media_type?: string | null
           media_urls?: string[] | null
+          moderation_status?: string | null
           reaction_count?: number | null
           updated_at?: string | null
           user_id?: string
@@ -359,47 +517,68 @@ export type Database = {
       }
       circles: {
         Row: {
+          auto_approve_members: boolean | null
           circle_type: string
           cover_image: string | null
           created_at: string | null
           created_by: string | null
           description: string | null
+          event_id: string | null
+          flagged_count: number | null
           id: string
           is_live: boolean | null
+          is_live_mode: boolean | null
           member_count: number | null
           name: string
           post_count: number | null
+          privacy_level: string | null
           reference_id: string | null
+          require_approval_threshold: number | null
+          rules: string | null
           status: string | null
           updated_at: string | null
         }
         Insert: {
+          auto_approve_members?: boolean | null
           circle_type?: string
           cover_image?: string | null
           created_at?: string | null
           created_by?: string | null
           description?: string | null
+          event_id?: string | null
+          flagged_count?: number | null
           id?: string
           is_live?: boolean | null
+          is_live_mode?: boolean | null
           member_count?: number | null
           name: string
           post_count?: number | null
+          privacy_level?: string | null
           reference_id?: string | null
+          require_approval_threshold?: number | null
+          rules?: string | null
           status?: string | null
           updated_at?: string | null
         }
         Update: {
+          auto_approve_members?: boolean | null
           circle_type?: string
           cover_image?: string | null
           created_at?: string | null
           created_by?: string | null
           description?: string | null
+          event_id?: string | null
+          flagged_count?: number | null
           id?: string
           is_live?: boolean | null
+          is_live_mode?: boolean | null
           member_count?: number | null
           name?: string
           post_count?: number | null
+          privacy_level?: string | null
           reference_id?: string | null
+          require_approval_threshold?: number | null
+          rules?: string | null
           status?: string | null
           updated_at?: string | null
         }
@@ -471,6 +650,70 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "user_engagement_stats"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      flagged_content: {
+        Row: {
+          circle_id: string | null
+          content_id: string
+          content_type: string
+          created_at: string | null
+          flagged_by: string | null
+          id: string
+          notes: string | null
+          reason: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string | null
+        }
+        Insert: {
+          circle_id?: string | null
+          content_id: string
+          content_type: string
+          created_at?: string | null
+          flagged_by?: string | null
+          id?: string
+          notes?: string | null
+          reason: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+        }
+        Update: {
+          circle_id?: string | null
+          content_id?: string
+          content_type?: string
+          created_at?: string | null
+          flagged_by?: string | null
+          id?: string
+          notes?: string | null
+          reason?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "flagged_content_circle_id_fkey"
+            columns: ["circle_id"]
+            isOneToOne: false
+            referencedRelation: "circles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "flagged_content_flagged_by_fkey"
+            columns: ["flagged_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "flagged_content_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["user_id"]
           },
         ]
@@ -1473,6 +1716,10 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_circle_moderator: {
+        Args: { _circle_id: string; _user_id: string }
         Returns: boolean
       }
       mark_all_notifications_read: {
