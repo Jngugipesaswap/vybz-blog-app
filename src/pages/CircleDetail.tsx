@@ -55,19 +55,39 @@ const CircleDetail = () => {
       if (circleError) throw circleError;
       setCircle(circleData);
 
+      // Fetch posts
       const { data: postsData } = await supabase
         .from("circle_posts" as any)
         .select("*, profiles(*)")
         .eq("circle_id", circleId)
+        .order("is_pinned", { ascending: false })
         .order("created_at", { ascending: false })
         .limit(20);
 
-      setPosts(postsData || []);
+      // Check which posts user has reacted to
+      let userReactions: string[] = [];
+      if (user) {
+        const { data: reactions } = await supabase
+          .from("circle_post_reactions" as any)
+          .select("post_id")
+          .eq("user_id", user.id);
+        
+        userReactions = reactions?.map((r: any) => r.post_id) || [];
+      }
+
+      // Add hasReacted flag to each post
+      const postsWithReactions = (postsData || []).map((post: any) => ({
+        ...post,
+        hasReacted: userReactions.includes(post.id)
+      }));
+
+      setPosts(postsWithReactions);
 
       const { data: membersData } = await supabase
         .from("circle_members" as any)
         .select("*, profiles(*)")
         .eq("circle_id", circleId)
+        .order("joined_at", { ascending: false })
         .limit(50);
 
       setMembers(membersData || []);
@@ -119,6 +139,57 @@ const CircleDetail = () => {
       fetchCircleData();
     } catch (error: any) {
       toast.error("Failed to update membership");
+    }
+  };
+
+  const handleReaction = async (postId: string, currentCount: number, hasReacted: boolean) => {
+    if (!user) {
+      toast.error("Please login to react");
+      return;
+    }
+
+    try {
+      if (hasReacted) {
+        // Remove reaction
+        await supabase
+          .from("circle_post_reactions" as any)
+          .delete()
+          .eq("post_id", postId)
+          .eq("user_id", user.id);
+
+        // Update post reaction count
+        await supabase
+          .from("circle_posts" as any)
+          .update({ reaction_count: Math.max(0, currentCount - 1) })
+          .eq("id", postId);
+      } else {
+        // Add reaction
+        await supabase
+          .from("circle_post_reactions" as any)
+          .insert({ post_id: postId, user_id: user.id, reaction_type: "like" });
+
+        // Update post reaction count
+        await supabase
+          .from("circle_posts" as any)
+          .update({ reaction_count: currentCount + 1 })
+          .eq("id", postId);
+      }
+
+      // Refresh posts
+      fetchCircleData();
+    } catch (error: any) {
+      toast.error("Failed to update reaction");
+    }
+  };
+
+  const handleShare = async (postId: string) => {
+    const shareUrl = `${window.location.origin}/community/circle/${circleId}?post=${postId}`;
+    
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      toast.success("Link copied to clipboard!");
+    } catch (error) {
+      toast.error("Failed to copy link");
     }
   };
 
@@ -407,15 +478,27 @@ const CircleDetail = () => {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="gap-2 hover:text-destructive hover:bg-destructive/10 transition-all hover:scale-110"
+                              onClick={() => handleReaction(post.id, post.reaction_count || 0, post.hasReacted)}
+                              className={cn(
+                                "gap-2 transition-all hover:scale-110",
+                                post.hasReacted 
+                                  ? "text-destructive bg-destructive/10" 
+                                  : "hover:text-destructive hover:bg-destructive/10"
+                              )}
                             >
-                              <Heart className="w-5 h-5 transition-transform" />
+                              <Heart 
+                                className={cn(
+                                  "w-5 h-5 transition-transform",
+                                  post.hasReacted && "fill-current"
+                                )} 
+                              />
                               <span className="font-semibold">{post.reaction_count || 0}</span>
                             </Button>
                             <Button
                               variant="ghost"
                               size="sm"
                               className="gap-2 hover:text-primary hover:bg-primary/10 transition-all hover:scale-110"
+                              onClick={() => toast.info("Comments coming soon!")}
                             >
                               <MessageCircle className="w-5 h-5" />
                               <span className="font-semibold">{post.comment_count || 0}</span>
@@ -424,12 +507,14 @@ const CircleDetail = () => {
                               variant="ghost"
                               size="sm"
                               className="gap-2 hover:text-accent hover:bg-accent/10 transition-all hover:scale-110"
+                              onClick={() => toast.info("Repost feature coming soon!")}
                             >
                               <Repeat2 className="w-5 h-5" />
                             </Button>
                             <Button
                               variant="ghost"
                               size="sm"
+                              onClick={() => handleShare(post.id)}
                               className="gap-2 ml-auto hover:text-primary hover:bg-primary/10 transition-all hover:scale-110"
                             >
                               <Send className="w-5 h-5" />
