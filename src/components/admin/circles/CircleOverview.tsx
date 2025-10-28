@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Search, Users, Activity, Flag, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { CreateCircleDialog } from "./CreateCircleDialog";
+import { CircleDetailDialog } from "./CircleDetailDialog";
 
 interface CircleMetrics {
   id: string;
@@ -27,7 +28,9 @@ export function CircleOverview() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"created" | "members" | "activity">("created");
-  const navigate = useNavigate();
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [detailDialogOpen, setDetailDialogOpen] = useState(false);
+  const [selectedCircleId, setSelectedCircleId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchCircles();
@@ -101,7 +104,7 @@ export function CircleOverview() {
             Oversee all circles and community activity
           </p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2" onClick={() => setCreateDialogOpen(true)}>
           <Plus className="h-4 w-4" />
           Create Circle
         </Button>
@@ -216,7 +219,14 @@ export function CircleOverview() {
                   </div>
                   <CardDescription className="mt-1">{circle.description}</CardDescription>
                 </div>
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    setSelectedCircleId(circle.id);
+                    setDetailDialogOpen(true);
+                  }}
+                >
                   Manage
                 </Button>
               </div>
@@ -250,6 +260,18 @@ export function CircleOverview() {
           </Card>
         ))}
       </div>
+
+      <CreateCircleDialog 
+        open={createDialogOpen}
+        onOpenChange={setCreateDialogOpen}
+        onSuccess={fetchCircles}
+      />
+
+      <CircleDetailDialog
+        open={detailDialogOpen}
+        onOpenChange={setDetailDialogOpen}
+        circleId={selectedCircleId}
+      />
     </div>
   );
 }
