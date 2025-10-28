@@ -87,7 +87,7 @@ const Community = () => {
 
       if (error) throw error;
       toast.success("Joined circle!");
-      navigate(`/community/${circleId}`);
+      navigate(`/community/circle/${circleId}`);
     } catch (error: any) {
       toast.error("Failed to join circle");
     }
