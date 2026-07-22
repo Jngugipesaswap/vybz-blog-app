@@ -31,15 +31,26 @@ export const ActivityLogger = () => {
     try {
       const { data, error } = await supabase
         .from('activity_log')
-        .select(`
-          *,
-          profiles:user_id (full_name)
-        `)
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(50);
 
       if (error) throw error;
-      setActivities(data || []);
+      const userIds = Array.from(new Set((data || []).map((a) => a.user_id).filter(Boolean))) as string[];
+      let profilesMap = new Map<string, { full_name: string | null }>();
+      if (userIds.length) {
+        const { data: profs } = await supabase
+          .from('profiles')
+          .select('user_id, full_name')
+          .in('user_id', userIds);
+        profilesMap = new Map((profs || []).map((p: any) => [p.user_id, { full_name: p.full_name }]));
+      }
+      setActivities(
+        (data || []).map((a: any) => ({
+          ...a,
+          profiles: a.user_id ? profilesMap.get(a.user_id) : undefined,
+        }))
+      );
     } catch (error) {
       console.error('Error fetching activities:', error);
     } finally {
